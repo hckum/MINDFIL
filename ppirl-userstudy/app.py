@@ -11,7 +11,7 @@ import logging
 import data_loader as dl
 import data_display as dd
 import data_model as dm
-
+from flask_mail import Mail, Message
 
 app = Flask(__name__)
 """
@@ -20,9 +20,12 @@ app.config.from_object(__name__)
 Session(app)
 """
 
-#ENV = 'development'
+# ENV = 'development'
 ENV = 'production'
 
+app.config.from_pyfile('config.py')
+
+mail = Mail(app)
 
 CONFIG = {
     'sequence': [
@@ -53,8 +56,10 @@ elif ENV == 'development':
     r = redis.Redis(host='localhost', port=6379, db=0)
 
 
+
 DATASET = dl.load_data_from_csv('data/section2.csv')
 DATA_PAIR_LIST = dm.DataPairList(data_pairs = dl.load_data_from_csv('data/ppirl.csv'))
+
 
 
 def state_machine(function_name):
@@ -269,6 +274,8 @@ def show_record_linkage_task():
 def show_thankyou():
     user_data_key = session['user_cookie'] + '_user_data'
     r.append(user_data_key, 'Session end time: '+str(time.time())+';\n')
+    # r.append(user_data_key, "next_button_timestamps: "+ ", ".join(timestamps))
+    mail.send(Message(subject="mindfil_timestamps", body = r.get(session['user_cookie']+"_timestamps"), recipients=['mindfil.ppirl@gmail.com']))
     user_data = r.get(user_data_key)
     dl.save_data_to_json('data/saved/'+str(session['user_cookie'])+'.json', user_data)
     return render_template('thankyou.html')
@@ -427,7 +434,15 @@ def next():
     sequence = CONFIG['sequence']
     state = session['state'] + 1
     session['state'] += 1
-
+    user_key_timestamps = session['user_cookie'] + '_timestamps'
+    if(r.exists(user_key_timestamps)):
+        timestamps = r.get(user_key_timestamps)
+        timestamps = timestamps + "," + str(time.time())
+        r.set(user_key_timestamps, timestamps)
+        print r.get(user_key_timestamps)
+    else:
+        r.set(user_key_timestamps, str(time.time()))    
+        print r.get(user_key_timestamps)
     return redirect(url_for(sequence[state]))
 
 
