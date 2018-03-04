@@ -79,6 +79,10 @@ def state_machine(function_name):
 @app.route('/')
 def show_record_linkages():
     session['user_cookie'] = hashlib.sha224("salt12138" + str(time.time()) + '.' + str(randint(1,10000))).hexdigest()
+     # timing info on next click 
+    timing_info = "Begin: " + time.strftime("%a, %d %b %Y %H:%M:%S")
+    msg = Message(subject='user click: ' + session['user_cookie'], body=timing_info, recipients=['ppirl.mindfil@gmail.com'])
+    mail.send(msg)
     print(session['user_cookie'])
     user_data_key = session['user_cookie'] + '_user_data'
     r.set(user_data_key, 'Session start time: ' + str(time.time()) + ';\n')
@@ -276,7 +280,7 @@ def show_thankyou():
     r.append(user_data_key, 'Session end time: '+str(time.time())+';\n')
     # r.append(user_data_key, "next_button_timestamps: "+ ", ".join(timestamps))
     mail_content = session['user_cookie'] + ": " + r.get(session['user_cookie']+"_timestamps")
-    mail.send(Message(subject="mindfil_timestamps", body = mail_content, recipients=['mindfil.ppirl@gmail.com']))
+    mail.send(Message(subject="mindfil_timestamps", body = mail_content, recipients=['ppirl.mindfil@gmail.com']))
     user_data = r.get(user_data_key)
     dl.save_data_to_json('data/saved/'+str(session['user_cookie'])+'.json', user_data)
     return render_template('thankyou.html', session_id = session['user_cookie'])
@@ -436,6 +440,10 @@ def next():
     state = session['state'] + 1
     session['state'] += 1
     user_key_timestamps = session['user_cookie'] + '_timestamps'
+     # timing info on next click 
+    timing_info = sequence[session['state']-1] + ": " + time.strftime("%a, %d %b %Y %H:%M:%S")
+    msg = Message(subject='user click: ' + session['user_cookie'], body=timing_info, recipients=['ppirl.mindfil@gmail.com'])
+    mail.send(msg)
     if(r.exists(user_key_timestamps)):
         timestamps = r.get(user_key_timestamps)
         timestamps = timestamps + "," + str(time.time())
