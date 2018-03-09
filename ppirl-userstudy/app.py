@@ -87,7 +87,19 @@ def show_record_linkages():
     user_data_key = session['user_cookie'] + '_user_data'
     r.set(user_data_key, 'Session start time: ' + str(time.time()) + ';\n')
 
-    return redirect(url_for('show_introduction'))
+    return redirect(url_for('show_signup'))
+
+@app.route('/signup')
+# @state_machine('show_signup')
+def show_signup():
+    # user_data_key = session['user_cookie'] + '_user_data'
+    # r.append(user_data_key, 'Session end time: '+str(time.time())+';\n')
+    # r.append(user_data_key, "next_button_timestamps: "+ ", ".join(timestamps))
+    # mail_content = session['user_cookie'] + ": " + r.get(session['user_cookie']+"_timestamps")
+    # mail.send(Message(subject="mindfil_timestamps", body = mail_content, recipients=['ppirl.mindfil@gmail.com']))
+    # user_data = r.get(user_data_key)
+    # dl.save_data_to_json('data/saved/'+str(session['user_cookie'])+'.json', user_data)
+    return render_template('signup.html', session_id = session['user_cookie'])
 
 
 @app.route('/introduction')
