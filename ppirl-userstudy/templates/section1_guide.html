@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>PPIRL</title>
+        <link rel="shortcut icon" href="../static/images/site/favicon.ico" type="image/x-icon" />
+        <link rel="stylesheet" href="../static/css/site.css" type="text/css">
+        <link rel="stylesheet" href="../static/css/instructions.css?q=27" type="text/css">
+        <link rel="stylesheet" href="../static/css/bootstrap.min.css" type="text/css">
+        <link rel="stylesheet" href="../static/css/footer.css" type="text/css">
+         <link rel="stylesheet" href="../static/css/tutorial.css" type="text/css">
+        <script src="../static/javascript/jquery-3.2.1.min.js"></script>
+        <script src="../static/javascript/popper.min.js"></script>
+        <script src="../static/javascript/bootstrap.min.js"></script>
+        <script src="../static/javascript/instructions.js"></script>
+        <script src="../static/javascript/site.js"></script>
+    </head>
+
+    <body>
+        <div id="wrapper">
+            <!-- <div id="title">
+                <h3>Instructions</h3>
+            </div> -->
+            <div id="content">
+                <div class="module_intros">
+                    {% if session[session['user_id'] + '_mode'] == '1': %}
+                        <img src="/static/images/module_intros/main_study_mode1.jpg"/>
+                    {% else: %}
+                        <img src="/static/images/module_intros/main_study.jpg"/>
+                    {% endif %}
+                </div>
+                <div class="submit_div">
+                    <form>
+                    <button formaction="{{ url_for('next') }}" id="button_0" class="submit_button">Next</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% include "footer.html" ignore missing %}
+    </body>
+</html>

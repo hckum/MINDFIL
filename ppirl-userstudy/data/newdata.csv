@@ -1,0 +1,218 @@
+uid,type,value,timestamp,extra
+1,session_start,1520888518,1520888518,source:server
+1,open_cell,288-1-3,1520888527312,url:/record_linkage
+1,kapr,0.4444444444444444,1520888527342,url:/record_linkage
+1,open_cell,288-1-4,1520888527830,url:/record_linkage
+1,kapr,0.5025720164609049,1520888527863,url:/record_linkage
+1,open_cell,288-1-5,1520888528225,url:/record_linkage
+1,kapr,0.5669867398262457,1520888528253,url:/record_linkage
+1,answer,p288a1,1520888529209,
+1,answer,p36a1,1520888529815,
+1,answer,p244a1,1520888530511,
+1,answer,p129a1,1520888531103,
+1,answer,p261a1,1520888531935,
+1,answer,p204a1,1520888532975,
+1,next_page,/record_linkage,1520888534039,url:/record_linkage
+1,final_answer, p288a1,1520888534041,url:/record_linkage
+1,final_answer, p36a1,1520888534041,url:/record_linkage
+1,final_answer, p244a1,1520888534041,url:/record_linkage
+1,final_answer, p129a1,1520888534041,url:/record_linkage
+1,final_answer, p261a1,1520888534041,url:/record_linkage
+1,final_answer, p204a1,1520888534041,url:/record_linkage
+1,answer,p230a1,1520888536095,url:/record_linkage
+1,answer,p155a1,1520888536695,url:/record_linkage
+1,answer,p137a1,1520888537207,url:/record_linkage
+1,answer,p207a1,1520888537799,url:/record_linkage
+1,answer,p4a1,1520888538367,url:/record_linkage
+1,answer,p75a1,1520888538967,url:/record_linkage
+1,next_page,/record_linkage,1520888540399,url:/record_linkage
+1,final_answer, p230a1,1520888540400,url:/record_linkage
+1,final_answer, p155a1,1520888540400,url:/record_linkage
+1,final_answer, p137a1,1520888540400,url:/record_linkage
+1,final_answer, p207a1,1520888540400,url:/record_linkage
+1,final_answer, p4a1,1520888540400,url:/record_linkage
+1,final_answer, p75a1,1520888540400,url:/record_linkage
+1,answer,p168a1,1520888542151,url:/record_linkage
+1,answer,p144a1,1520888543640,url:/record_linkage
+1,answer,p68a1,1520888544263,url:/record_linkage
+1,answer,p173a1,1520888545144,url:/record_linkage
+1,answer,p110a1,1520888545767,url:/record_linkage
+1,answer,p38a1,1520888546423,url:/record_linkage
+1,next_page,/record_linkage,1520888547695,url:/record_linkage
+1,final_answer, p168a1,1520888547696,url:/record_linkage
+1,final_answer, p144a1,1520888547696,url:/record_linkage
+1,final_answer, p68a1,1520888547696,url:/record_linkage
+1,final_answer, p173a1,1520888547696,url:/record_linkage
+1,final_answer, p110a1,1520888547696,url:/record_linkage
+1,final_answer, p38a1,1520888547696,url:/record_linkage
+1,answer,p17a1,1520888549072,url:/record_linkage
+1,answer,p294a1,1520888549719,url:/record_linkage
+1,answer,p53a1,1520888550399,url:/record_linkage
+1,answer,p98a1,1520888551536,url:/record_linkage
+1,answer,p55a1,1520888552240,url:/record_linkage
+1,answer,p224a1,1520888553487,url:/record_linkage
+1,next_page,/record_linkage,1520888554335,url:/record_linkage
+1,final_answer, p17a1,1520888554336,url:/record_linkage
+1,final_answer, p294a1,1520888554336,url:/record_linkage
+1,final_answer, p53a1,1520888554336,url:/record_linkage
+1,final_answer, p98a1,1520888554336,url:/record_linkage
+1,final_answer, p55a1,1520888554336,url:/record_linkage
+1,final_answer, p224a1,1520888554336,url:/record_linkage
+1,answer,p321a1,1520888555816,url:/record_linkage
+1,answer,p359a1,1520888556520,url:/record_linkage
+1,answer,p307a1,1520888557296,url:/record_linkage
+1,answer,p28a1,1520888558808,url:/record_linkage
+1,answer,p123a1,1520888559400,url:/record_linkage
+1,answer,p370a1,1520888560256,url:/record_linkage
+1,next_page,/record_linkage,1520888561487,url:/record_linkage
+1,final_answer, p321a1,1520888561488,url:/record_linkage
+1,final_answer, p359a1,1520888561488,url:/record_linkage
+1,final_answer, p307a1,1520888561488,url:/record_linkage
+1,final_answer, p28a1,1520888561488,url:/record_linkage
+1,final_answer, p123a1,1520888561488,url:/record_linkage
+1,final_answer, p370a1,1520888561488,url:/record_linkage
+1,answer,p190a1,1520888563399,url:/record_linkage
+1,answer,p340a1,1520888564352,url:/record_linkage
+1,answer,p256a1,1520888565473,url:/record_linkage
+1,answer,p270a1,1520888566777,url:/record_linkage
+1,answer,p331a1,1520888567448,url:/record_linkage
+1,answer,p90a1,1520888568120,url:/record_linkage
+1,jumping,/record_linkage,1520888569488,url:/record_linkage
+1,final_answer, p190a1,1520888569488,url:/record_linkage
+1,final_answer, p340a1,1520888569488,url:/record_linkage
+1,final_answer, p256a1,1520888569488,url:/record_linkage
+1,final_answer, p270a1,1520888569488,url:/record_linkage
+1,final_answer, p331a1,1520888569488,url:/record_linkage
+1,final_answer, p90a1,1520888569488,url:/record_linkage
+1,session_end,1520888569,1520888569,source:server
+1,performance1,17 out of 36,1520888569,source:server
+1,performance2,0 out of 331,1520888569,source:server
+1,final_KAPR_section1,0.00566986739826246,1520888569,source:server|total:42.82452841293134
+3,session_start,1520888589,1520888589,source:server
+3,answer,p189a1,1520888600012,
+3,answer,p78a1,1520888600642,
+3,answer,p342a1,1520888601193,
+3,answer,p167a1,1520888601865,
+3,answer,p40a1,1520888602545,
+3,answer,p130a1,1520888603162,
+3,next_page,/record_linkage,1520888604209,url:/record_linkage
+3,final_answer, p189a1,1520888604211,url:/record_linkage
+3,final_answer, p78a1,1520888604211,url:/record_linkage
+3,final_answer, p342a1,1520888604211,url:/record_linkage
+3,final_answer, p167a1,1520888604211,url:/record_linkage
+3,final_answer, p40a1,1520888604211,url:/record_linkage
+3,final_answer, p130a1,1520888604211,url:/record_linkage
+3,answer,p180a1,1520888605690,url:/record_linkage
+3,answer,p46a1,1520888606400,url:/record_linkage
+3,answer,p36a1,1520888606969,url:/record_linkage
+3,answer,p204a1,1520888607705,url:/record_linkage
+3,answer,p153a1,1520888608393,url:/record_linkage
+3,answer,p93a1,1520888609242,url:/record_linkage
+3,next_page,/record_linkage,1520888610868,url:/record_linkage
+3,final_answer, p180a1,1520888610868,url:/record_linkage
+3,final_answer, p46a1,1520888610868,url:/record_linkage
+3,final_answer, p36a1,1520888610868,url:/record_linkage
+3,final_answer, p204a1,1520888610868,url:/record_linkage
+3,final_answer, p153a1,1520888610868,url:/record_linkage
+3,final_answer, p93a1,1520888610868,url:/record_linkage
+3,session_end,1520888612,1520888612,source:server
+3,performance1,7 out of 36,1520888612,source:server
+3,performance2,0 out of 331,1520888612,source:server
+3,final_KAPR_section1,0,1520888612,source:server|total:44.92618312944819
+4,session_start,1520889529,1520889529,source:server
+4,open_cell,153-1-0,1520889541587,url:/record_linkage
+4,kapr,0.8177008177008177,1520889541620,url:/record_linkage
+4,open_cell,153-1-1,1520889542158,url:/record_linkage
+4,kapr,1.3900913900913903,1520889542185,url:/record_linkage
+4,open_cell,153-1-2,1520889542589,url:/record_linkage
+4,kapr,1.632996632996633,1520889542614,url:/record_linkage
+4,open_cell,153-1-2,1520889543583,url:/record_linkage
+4,kapr,1.9600769600769599,1520889543611,url:/record_linkage
+4,open_cell,153-1-3,1520889544127,url:/record_linkage
+4,kapr,2.6142376142376142,1520889544153,url:/record_linkage
+4,open_cell,153-1-4,1520889544677,url:/record_linkage
+4,kapr,2.6960076960076957,1520889544705,url:/record_linkage
+4,open_cell,153-1-5,1520889545357,url:/record_linkage
+4,kapr,2.7777777777777777,1520889545382,url:/record_linkage
+4,open_cell,286-1-0,1520889546071,url:/record_linkage
+4,kapr,3.311965811965812,1520889546099,url:/record_linkage
+4,open_cell,286-1-1,1520889546518,url:/record_linkage
+4,kapr,4.202279202279202,1520889546544,url:/record_linkage
+4,open_cell,286-1-2,1520889546911,url:/record_linkage
+4,kapr,4.870014245014245,1520889546936,url:/record_linkage
+4,open_cell,286-1-3,1520889547301,url:/record_linkage
+4,kapr,5.332977207977208,1520889547330,url:/record_linkage
+4,open_cell,286-1-3,1520889547696,url:/record_linkage
+4,open_cell,286-1-4,1520889548031,url:/record_linkage
+4,kapr,5.444266381766382,1520889548058,url:/record_linkage
+4,open_cell,286-1-5,1520889548431,url:/record_linkage
+4,kapr,5.555555555555556,1520889548459,url:/record_linkage
+4,open_cell,79-1-0,1520889549031,url:/record_linkage
+4,kapr,5.610931513409962,1520889549058,url:/record_linkage
+4,open_cell,79-1-0,1520889549448,url:/record_linkage
+4,kapr,6.468510536398468,1520889549473,url:/record_linkage
+4,open_cell,79-1-1,1520889549849,url:/record_linkage
+4,kapr,6.924988026819924,1520889549874,url:/record_linkage
+4,open_cell,79-1-2,1520889550239,url:/record_linkage
+4,kapr,7.420378352490423,1520889550267,url:/record_linkage
+4,open_cell,79-1-3,1520889551002,url:/record_linkage
+4,kapr,8.15074233716475,1520889551026,url:/record_linkage
+4,open_cell,79-1-4,1520889551351,url:/record_linkage
+4,kapr,8.242037835249043,1520889551376,url:/record_linkage
+4,open_cell,79-1-5,1520889551767,url:/record_linkage
+4,kapr,8.333333333333332,1520889551797,url:/record_linkage
+4,open_cell,41-1-0,1520889552702,url:/record_linkage
+4,kapr,8.73015873015873,1520889552726,url:/record_linkage
+4,kapr,10.317460317460316,1520889553116,url:/record_linkage
+4,open_cell,41-1-3,1520889553854,url:/record_linkage
+4,kapr,10.952380952380953,1520889553884,url:/record_linkage
+4,open_cell,41-1-4,1520889554217,url:/record_linkage
+4,kapr,11.031746031746032,1520889554244,url:/record_linkage
+4,open_cell,41-1-5,1520889554679,url:/record_linkage
+4,kapr,11.11111111111111,1520889554709,url:/record_linkage
+4,open_cell,66-1-0,1520889555601,url:/record_linkage
+4,kapr,11.165577342047929,1520889555625,url:/record_linkage
+4,open_cell,66-1-0,1520889555991,url:/record_linkage
+4,kapr,11.928104575163397,1520889556015,url:/record_linkage
+4,open_cell,66-1-2,1520889556552,url:/record_linkage
+4,kapr,12.663398692810453,1520889556576,url:/record_linkage
+4,open_cell,66-1-1,1520889557286,url:/record_linkage
+4,kapr,13.0718954248366,1520889557312,url:/record_linkage
+4,open_cell,66-1-3,1520889557687,url:/record_linkage
+4,kapr,13.72549019607843,1520889557711,url:/record_linkage
+4,open_cell,66-1-4,1520889558102,url:/record_linkage
+4,kapr,13.807189542483659,1520889558129,url:/record_linkage
+4,open_cell,66-1-5,1520889558703,url:/record_linkage
+4,kapr,13.888888888888888,1520889558728,url:/record_linkage
+4,open_cell,43-1-0,1520889559287,url:/record_linkage
+4,kapr,14.309764309764308,1520889559313,url:/record_linkage
+4,open_cell,43-1-1,1520889559605,url:/record_linkage
+4,kapr,14.56228956228956,1520889559630,url:/record_linkage
+4,open_cell,43-1-2,1520889559921,url:/record_linkage
+4,kapr,14.856902356902356,1520889559945,url:/record_linkage
+4,open_cell,43-1-3,1520889560254,url:/record_linkage
+4,kapr,15.909090909090908,1520889560280,url:/record_linkage
+4,open_cell,43-1-3,1520889560711,url:/record_linkage
+4,kapr,16.4983164983165,1520889560738,url:/record_linkage
+4,open_cell,43-1-4,1520889561031,url:/record_linkage
+4,kapr,16.58249158249158,1520889561059,url:/record_linkage
+4,open_cell,43-1-5,1520889561367,url:/record_linkage
+4,kapr,16.666666666666664,1520889561395,url:/record_linkage
+4,answer,p153a1,1520889562697,
+4,answer,p286a1,1520889563439,
+4,answer,p79a1,1520889564375,
+4,answer,p41a1,1520889565190,
+4,answer,p66a1,1520889567063,
+4,answer,p43a1,1520889567807,
+4,next_page,/record_linkage,1520889569023,url:/record_linkage
+4,final_answer, p153a1,1520889569023,url:/record_linkage
+4,final_answer, p286a1,1520889569023,url:/record_linkage
+4,final_answer, p79a1,1520889569024,url:/record_linkage
+4,final_answer, p41a1,1520889569024,url:/record_linkage
+4,final_answer, p66a1,1520889569024,url:/record_linkage
+4,final_answer, p43a1,1520889569024,url:/record_linkage
+4,session_end,1520889570,1520889570,source:server
+4,performance1,1 out of 36,1520889570,source:server
+4,performance2,0 out of 332,1520889570,source:server
+4,final_KAPR_section1,0.16666666666666666,1520889570,source:server|total:43.65512709046703
+2,session_start,1520888588,1520888588,source:server

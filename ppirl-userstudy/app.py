@@ -1,5 +1,5 @@
 from flask import Flask, render_template, redirect, url_for, session, jsonify, request, g
-from functools import wraps
+from flask_mail import Mail, Message
 import time
 from random import *
 import json
@@ -9,389 +9,290 @@ import os
 import redis
 import logging
 import math
+import copy
 import data_loader as dl
 import data_display as dd
 import data_model as dm
+import user_data as ud
 import config
+from main_section import main_section
+from tutorial import tutorial
+from util import state_machine
+from global_data import *
 
 
 app = Flask(__name__)
+app.debug = False
+app.secret_key = 'a9%z$/`9h8FMnh893;*g783'
+
+app.register_blueprint(tutorial)
+app.register_blueprint(main_section)
+
+app.config.from_pyfile('email_config.py')
+mail = Mail(app)
 
 
-if config.ENV == 'production':
-    r = redis.from_url(os.environ.get("REDIS_URL"))
-elif config.ENV == 'development':
-    r = redis.Redis(host='localhost', port=6379, db=0)
+if not r.exists('user_id_generator'):
+    r.set('user_id_generator', 0)
 
 
-# global data, this should be common across all users, not affected by multiple process
-DATASET = dl.load_data_from_csv('data/section2.csv')
-DATA_PAIR_LIST = dm.DataPairList(data_pairs = dl.load_data_from_csv('data/ppirl.csv'))
+def get_main_section_data(uid, section):
+    data_num = int(uid)%10
+    if data_num == 0:
+        data_num = 10
+    data_num -= 1
 
+    if section == 1:
+        return DATA_SECTION1[data_num]
+    else:
+        return DATA_SECTION2[data_num]
 
-def state_machine(function_name):
-    def wrapper(f):
-        @wraps(f)
-        def inner_wrapper(*args, **kwargs):
-            sequence = config.SEQUENCE
-            for i in range(len(sequence)):
-                if sequence[i] == function_name:
-                    session['state'] = i
-                    break
-            return f(*args, **kwargs)
-        return inner_wrapper
-    return wrapper
+def get_sequence_for_mode():
+    return config.SEQUENCE['Mode_'+r.get(str(session['user_id'])+'_ustudy_mode')]
 
+def get_url_for_index(index):
+    return get_sequence_for_mode()[int(index)]
 
 @app.route('/')
-def show_record_linkages():
-    session['user_cookie'] = hashlib.sha224("salt12138" + str(time.time()) + '.' + str(randint(1,10000))).hexdigest()
-    print(session['user_cookie'])
-    user_data_key = session['user_cookie'] + '_user_data'
-    r.set(user_data_key, 'Session start time: ' + str(time.time()) + ';\n')
+@app.route('/index')
+def index():
+    user_id = 0
+    # new user
+    if request.args.get("id") is None:
+        user_id = str(r.incr('user_id_generator'))
+        r.set('user_id_'+user_id, user_id)
+        ustudy_mode = request.args.get('mode')
+        ustudy_budget = request.args.get('budget')
+        if ustudy_mode is None:
+            ustudy_mode = '1'
+        if ustudy_budget is None:
+            ustudy_budget = '0'
+        if ustudy_mode != '4':
+            ustudy_budget = '0'
+        if int(ustudy_mode) not in [1,2,3,4]:
+            return page_not_found('page_not_found')
+        if ustudy_budget not in ['moderate', 'minimum']:
+            if float(ustudy_budget) < 0 or float(ustudy_budget) > 100:
+                return page_not_found('page_not_found')
+    else:
+        user_id = str(request.args.get("id"))
+        if r.get('user_id_' + user_id) is None:
+            # new user come with id
+            #return render_template('user_not_found.html')
+            r.set('user_id_'+user_id, user_id)
+            ustudy_mode = request.args.get('mode')
+            ustudy_budget = request.args.get('budget')
+            if ustudy_mode is None:
+                ustudy_mode = '1'
+            if ustudy_budget is None:
+                ustudy_budget = '0'
+            if ustudy_mode != '4':
+                ustudy_budget = '0'
+            if int(ustudy_mode) not in [1,2,3,4]:
+                return page_not_found('page_not_found')
+            if ustudy_budget not in ['moderate', 'minimum']:
+                if float(ustudy_budget) < 0 or float(ustudy_budget) > 100:
+                    return page_not_found('page_not_found')
+        else:
+            # come back user
+            ustudy_mode = r.get(user_id+'_ustudy_mode')
+            ustudy_budget = r.get(user_id+'_ustudy_budget')
 
-    return redirect(url_for('show_introduction'))
+    session['user_id'] = str(user_id)
+    session[session['user_id'] + '_mode'] = str(ustudy_mode)
+    user_data_key = str(session['user_id']) + '_user_data'
 
+    index = r.get("session_"+str(user_id)+"_state")
+    if index is None:
+        index = 0
+        r.set("session_"+str(user_id)+"_state", 0)
+        session['state'] = 0
+    else:
+        session['state'] = index
+
+    # saving user data
+    data = {
+        'uid': user_id,
+        'type': 'session_start',
+        'value': int(time.time()),
+        'timestamp': int(time.time()),
+        'source': 'server',
+        'ustudy_mode': ustudy_mode,
+        'ustudy_budget': ustudy_budget
+    }
+    r.set(user_data_key, ud.format_user_data(data))
+
+    r.set("session_"+str(user_id), session)
+
+    r.set(str(session['user_id'])+'_ustudy_mode', ustudy_mode)
+    r.set(str(session['user_id'])+'_ustudy_budget', ustudy_budget)
+
+    return redirect(url_for(get_url_for_index(index)))
+
+    
+
+@app.route('/feedback_main_section')
+def feedback_main_section():
+    ids = request.args.get('ids').split(',')
+    responses = request.args.get('responses').split(',')
+    screen_ids = request.args.get('screen_ids').split(',')
+    working_data = get_main_section_data(session['user_id'], 1)
+    wrong_attempts = []
+    wrong_ids = []
+    right_ids = []
+    feedback = ""
+    for i in range(6):
+        dp = working_data.get_data_pair(int(ids[i]))
+        grade = dp.grade(int(responses[i]))
+        # grades.append(grade)
+        if not grade:
+            wrong_attempts.append(screen_ids[i])
+            wrong_ids.append(ids[i])
+        else:
+            right_ids.append(ids[i])
+
+
+    if len(wrong_attempts) == 0:
+        feedback = "You got all of the questions in this page right!"
+    else:
+        feedback += "Question(s) you got wrong: " + ", ".join(wrong_attempts) + "\n"
+        # feedback += "You might want to consider opening more relevant information if it would help you get more questions right."
+
+    return jsonify(result=feedback, wrong_ids=wrong_ids, right_ids =right_ids)
 
 @app.route('/introduction')
 @state_machine('show_introduction')
 def show_introduction():
-    return render_template('introduction.html')
+    return render_template('introduction.html', uid=str(session['user_id']))
 
 
 @app.route('/introduction2')
 @state_machine('show_introduction2')
 def show_introduction2():
-    return render_template('introduction2.html')
+    return render_template('introduction2.html', uid=str(session['user_id']))
 
-
-@app.route('/RL_tutorial')
-@state_machine('show_RL_tutorial')
-def show_RL_tutorial():
-    return render_template('RL_tutorial.html')
-
-
-@app.route('/privacy_in_RL')
-@state_machine('show_privacy_in_RL')
-def show_privacy_in_RL():
-    return render_template('privacy.html')
-
-
-@app.route('/instructions/base_mode')
-@state_machine('show_instruction_base_mode')
-def show_instruction_base_mode():
-    return render_template('instruction_base_mode.html')
-
-
-@app.route('/instructions/full_mode')
-@state_machine('show_instruction_full_mode')
-def show_instruction_full_mode():
-    return render_template('instruction_full_mode.html')
-
-
-@app.route('/instructions/masked_mode')
-@state_machine('show_instruction_masked_mode')
-def show_instruction_masked_mode():
-    return render_template('instruction_masked_mode.html')
-
-
-@app.route('/instructions/minimum_mode')
-@state_machine('show_instruction_minimum_mode')
-def show_instruction_minimum_mode():
-    return render_template('instruction_minimum_mode.html')
-
-
-@app.route('/instructions/moderate_mode')
-@state_machine('show_instruction_moderate_mode')
-def show_instruction_moderate_mode():
-    return render_template('instruction_moderate_mode.html')
-
-
-@app.route('/instructions/encrypted_mode')
-@state_machine('show_instruction_encrypted_mode')
-def show_instruction_encrypted_mode():
-    return render_template('instruction_encrypted_mode.html')
-
-
-@app.route('/instructions/ppirl')
-@state_machine('show_instruction_ppirl')
-def show_instruction_ppirl():
-    return render_template('instruction_ppirl.html')
-
-
-@app.route('/practice/base_mode')
-@state_machine('show_pratice_base_mode')
-def show_pratice_base_mode():
-    pairs = dl.load_data_from_csv('data/practice_base_mode.csv')
-    pairs_formatted = dd.format_data(pairs, 'base')
-    data = zip(pairs_formatted[0::2], pairs_formatted[1::2])
-    icons = (len(pairs)/2)*[7*['']]
-    return render_template('record_linkage_d.html', data=data, icons=icons, title='Section 1: practice', thisurl='/practice/base_mode', page_number=5)
-
-
-@app.route('/practice/full_mode')
-@state_machine('show_pratice_full_mode')
-def show_pratice_full_mode():
-    pairs = dl.load_data_from_csv('data/practice_full_mode.csv')
-    pairs_formatted = dd.format_data(pairs, 'full')
-    data = zip(pairs_formatted[0::2], pairs_formatted[1::2])
-    icons = dd.generate_icon(pairs)
-    return render_template('record_linkage_d.html', data=data, icons=icons, title='Section 1: practice', thisurl='/practice/full_mode', page_number=7)
-
-
-@app.route('/practice/masked_mode')
-@state_machine('show_pratice_masked_mode')
-def show_pratice_masked_mode():
-    pairs = dl.load_data_from_csv('data/practice_masked_mode.csv')
-    pairs_formatted = dd.format_data(pairs, 'masked')
-    data = zip(pairs_formatted[0::2], pairs_formatted[1::2])
-    icons = dd.generate_icon(pairs)
-    return render_template('record_linkage_d.html', data=data, icons=icons, title='Section 1: practice', thisurl='/practice/masked_mode', page_number=10)
-
-
-@app.route('/practice/minimum_mode')
-@state_machine('show_pratice_minimum_mode')
-def show_pratice_minimum_mode():
-    pairs = dl.load_data_from_csv('data/practice_minimum_mode.csv')
-    pairs_formatted = dd.format_data(pairs, 'minimum')
-    data = zip(pairs_formatted[0::2], pairs_formatted[1::2])
-    icons = dd.generate_icon(pairs)
-    return render_template('record_linkage_d.html', data=data, icons=icons, title='Section 1: practice', thisurl='/practice/minimum_mode', page_number=12)
-
-
-@app.route('/practice/moderate_mode')
-@state_machine('show_pratice_moderate_mode')
-def show_pratice_moderate_mode():
-    pairs = dl.load_data_from_csv('data/practice_moderate_mode.csv')
-    pairs_formatted = dd.format_data(pairs, 'moderate')
-    data = zip(pairs_formatted[0::2], pairs_formatted[1::2])
-    icons = dd.generate_icon(pairs)
-    return render_template('record_linkage_d.html', data=data, icons=icons, title='Section 1: practice', thisurl='/practice/moderate_mode', page_number=14)
-
-
-@app.route('/practice/<table_mode>/grading')
-def grade_pratice_full_mode(table_mode):
-    data_file = 'practice_' + str(table_mode) + '.csv'
-    ret = list()
-    responses = request.args.get('response').split(',')
-    pairs = dl.load_data_from_csv('data/' + data_file)
-    j = 0
-    all_correct = True
-    for i in range(0, len(pairs), 2):
-        result = False
-        j += 1
-        q = 'q' + str(j)
-        answer = pairs[i][17]
-        if answer == '1' and (q+'a4' in responses or q+'a5' in responses or q+'a6' in responses):
-            result = True
-        if answer == '0' and (q+'a1' in responses or q+'a2' in responses or q+'a3' in responses):
-            result = True
-        if not result:
-            ret.append('<div>' + pairs[i][18] + '</div>')
-            all_correct = False
-    if all_correct:
-        ret.append('<div>Good job!</div>')
-    return jsonify(result=ret)
-
-
-@app.route('/record_linkage')
-@state_machine('show_record_linkage_task')
-def show_record_linkage_task():
-    #pairs = dl.load_data_from_csv('data/ppirl.csv')
-    #total_characters = dd.get_total_characters(pairs)
-    #pairs = pairs[0:12]
-
-    dp_size = config.DATA_PAIR_PER_PAGE
-    attribute_size = 6
-    dp_list_size = DATA_PAIR_LIST.get_size()
-    page_size = int(math.ceil(1.0*dp_list_size/config.DATA_PAIR_PER_PAGE))
-    page_size_key = session['user_cookie'] + '_page_size'
-    r.set(page_size_key, str(page_size))
-    current_page_key = session['user_cookie'] + '_current_page'
-    r.set(current_page_key, '0')
-
-    pairs_formatted = DATA_PAIR_LIST.get_data_display('masked')[0:2*dp_size]
-    data = zip(pairs_formatted[0::2], pairs_formatted[1::2])
-    icons = DATA_PAIR_LIST.get_icons()[0:dp_size]
-    ids_list = DATA_PAIR_LIST.get_ids()[0:2*dp_size]
-    ids = zip(ids_list[0::2], ids_list[1::2])
-
-    # percentage of character disclosure
-    """
-    mindfil_total_characters_key = session['user_cookie'] + '_mindfil_total_characters'
-    r.set(mindfil_total_characters_key, total_characters)
-    mindfil_disclosed_characters_key = session['user_cookie'] + '_mindfil_disclosed_characters'
-    r.set(mindfil_disclosed_characters_key, 0)
-    """
-
-    # KAPR - K-Anonymity privacy risk
-    KAPR_key = session['user_cookie'] + '_KAPR'
-    r.set(KAPR_key, 0)
-
-    # set the user-display-status as masked for all cell
-    for id1 in ids_list:
-        for i in range(attribute_size):
-            key = session['user_cookie'] + '-' + id1[i]
-            r.set(key, 'M')
-
-    # get the delta information
-    delta = list()
-    for i in range(dp_size):
-        data_pair = DATA_PAIR_LIST.get_data_pair_by_index(i)
-        delta += dm.KAPR_delta(DATASET, data_pair, ['M', 'M', 'M', 'M', 'M', 'M'])
-
-    return render_template('record_linkage_ppirl.html', data=data, icons=icons, ids=ids, title='Section 2: Minimum Necessary Disclosure For Interactive record Linkage', thisurl='/record_linkage', page_number=16, delta=delta)
-
-
-@app.route('/thankyou')
-@state_machine('show_thankyou')
-def show_thankyou():
-    user_data_key = session['user_cookie'] + '_user_data'
-    r.append(user_data_key, 'Session end time: '+str(time.time())+';\n')
-    user_data = r.get(user_data_key)
-    dl.save_data_to_json('data/saved/'+str(session['user_cookie'])+'.json', user_data)
-
-    # clear user data in redis
-    for key in r.scan_iter("prefix:"+session['user_cookie']):
-        r.delete(key)
-
-    return render_template('thankyou.html')
-
+@app.route('/pre_survey', methods=['GET', 'POST'])
+@state_machine('pre_survey')
+def pre_survey():
+    if request.method == 'POST':
+        f = request.form
+        for key in f:
+            store_key = str(session['user_id']) + '_user_data'+ "_pre_survey_" + key
+            r.set(store_key, f[key]) 
+        return redirect('/next')
+    if request.method == 'GET':
+        return render_template('pre_survey.html', uid=str(session['user_id']))
 
 @app.route('/save_data', methods=['GET', 'POST'])
 def save_data():
     user_data = request.form['user_data']
-    user_data_key = session['user_cookie'] + '_user_data'
-    r.append(user_data_key, user_data+'\n')
+    data_list = user_data.split(';')
+    formatted_data = ''
+    for line in data_list:
+        if line:
+            formatted_data += ('uid:'+str(session['user_id'])+','+line+';')
+    user_data_key = str(session['user_id']) + '_user_data'
+    r.append(user_data_key, formatted_data)
     return 'data_saved.'
 
 
 @app.route('/get_cell', methods=['GET', 'POST'])
 def open_cell():
+    ret = dict()
+    kapr_limit = 0
+    
+    if get_url_for_index(session['state']) == 'tutorial.show_tutorial_clickable_demo':
+        working_data = DATA_CLICKABLE_DEMO
+        full_data = DATASET_TUTORIAL
+    elif get_url_for_index(session['state']) == 'tutorial.show_tutorial_clickable_decision_making_demo':
+        working_data = DATA_DM_DEMO
+        full_data = DATASET_TUTORIAL
+        # kapr_limit = 100
+        # float(r.get(session['user_id']+'tutorial_dmdemo_kapr_limit'))
+    elif get_url_for_index(session['state']) == 'tutorial.show_tutorial_clickable_practice':
+        working_data = DATA_CLICKABLE_PRACTICE
+        full_data = DATASET_TUTORIAL
+        if r.get(session['user_id']+'_ustudy_mode') == "4":
+            kapr_limit = 20
+        # float(r.get(session['user_id']+'tutorial_practice_kapr_limit'))
+    elif get_url_for_index(session['state']) == 'main_section.show_record_linkage_task':
+        working_data = get_main_section_data(session['user_id'], 1)
+        full_data = DATASET
+        kapr_limit = float(r.get(str(session['user_id'])+'section1_kapr_limit'))
+    else:
+        working_data = get_main_section_data(str(session['user_id']), 2)
+        working_data.set_kapr_size(6)
+        full_data = DATASET2
+        kapr_limit = float(r.get(str(session['user_id'])+'section2_kapr_limit'))
+
     id1 = request.args.get('id1')
     id2 = request.args.get('id2')
     mode = request.args.get('mode')
-
     pair_num = str(id1.split('-')[0])
     attr_num = str(id1.split('-')[2])
+    user_key = str(session['user_id'])
+    ret = dm.open_cell(user_key, full_data, working_data, pair_num, attr_num, mode, r, kapr_limit)
+    return jsonify(ret)
 
-    pair_id = int(pair_num)
-    attr_id = int(attr_num)
 
-    pair = DATA_PAIR_LIST.get_data_pair(pair_id)
-    attr = pair.get_attributes(attr_id)
-    attr1 = attr[0]
-    attr2 = attr[1]
-    helper = pair.get_helpers(attr_id)
-    helper1 = helper[0]
-    helper2 = helper[1]
+@app.route('/get_big_cell', methods=['GET', 'POST'])
+def open_big_cell():
+    ret = dict()
 
-    if mode == 'full':
-        return jsonify({"value1": attr1, "value2": attr2, "mode": "full"})
-
-    attr_display_next = pair.get_next_display(attr_id = attr_id, attr_mode = mode)
-    ret = {"value1": attr_display_next[1][0], "value2": attr_display_next[1][1], "mode": attr_display_next[0]}
-
-    # TODO: assert the mode is consistent with the display_mode in redis
-
-    """ no character disclosed percentage now
-    for character disclosure percentage, see branch ELSI
-    """
-
-    # get K-Anonymity based Privacy Risk
-    old_display_status1 = list()
-    old_display_status2 = list()
-    key1_prefix = session['user_cookie'] + '-' + pair_num + '-1-'
-    key2_prefix = session['user_cookie'] + '-' + pair_num + '-2-'
-    for attr_i in range(6):
-        old_display_status1.append(r.get(key1_prefix + str(attr_i)))
-        old_display_status2.append(r.get(key2_prefix + str(attr_i)))
-
-    # update the display status in redis
-    key1 = session['user_cookie'] + '-' + pair_num + '-1-' + attr_num
-    key2 = session['user_cookie'] + '-' + pair_num + '-2-' + attr_num
-    if ret['mode'] == 'full':
-        r.set(key1, 'F')
-        r.set(key2, 'F')
-    elif ret['mode'] == 'partial':
-        r.set(key1, 'P')
-        r.set(key2, 'P')
+    kapr_limit = 0
+    if get_url_for_index(session['state']) == 'tutorial.show_tutorial_clickable_demo':
+        working_data = DATA_CLICKABLE_DEMO
+        full_data = DATASET_TUTORIAL
+    elif get_url_for_index(session['state']) == 'tutorial.show_tutorial_clickable_decision_making_demo':
+        working_data = DATA_DM_DEMO
+        full_data = DATASET_TUTORIAL
+        # kapr_limit = float(r.get(session['user_id']+'tutorial_dmdemo_kapr_limit'))
+    elif get_url_for_index(session['state']) == 'tutorial.show_tutorial_clickable_practice':
+        working_data = DATA_CLICKABLE_PRACTICE
+        full_data = DATASET_TUTORIAL
+        if session["user_id"] + "_mode" == "4":
+          kapr_limit = 20
+        # float(r.get(session['user_id']+'tutorial_practice_kapr_limit'))
+    elif get_url_for_index(session['state']) == 'main_section.show_record_linkage_task':
+        working_data = get_main_section_data(session['user_id'], 1)
+        full_data = DATASET
+        kapr_limit = float(r.get(session['user_id']+'section1_kapr_limit'))
     else:
-        print("Error: invalid display status.")
-        logging.error('Error: invalid display status.')
+        working_data = get_main_section_data(session['user_id'], 2)
+        working_data.set_kapr_size(6)
+        full_data = DATASET2
+        kapr_limit = float(r.get(str(session['user_id'])+'section2_kapr_limit'))
 
-    display_status1 = list()
-    display_status2 = list()
-    key1_prefix = session['user_cookie'] + '-' + pair_num + '-1-'
-    key2_prefix = session['user_cookie'] + '-' + pair_num + '-2-'
-    for attr_i in range(6):
-        display_status1.append(r.get(key1_prefix + str(attr_i)))
-        display_status2.append(r.get(key2_prefix + str(attr_i)))
+    id1 = request.args.get('id1')
+    id2 = request.args.get('id2')
+    id3 = request.args.get('id3')
+    id4 = request.args.get('id4')
+    mode = request.args.get('mode')
+    user_key = session['user_id']
 
-    old_KAPR = dm.get_KAPR_for_dp(DATASET, pair, old_display_status1)
-    KAPR = dm.get_KAPR_for_dp(DATASET, pair, display_status1)
-    KAPRINC = KAPR - old_KAPR
-    KAPR_key = session['user_cookie'] + '_KAPR'
-    overall_KAPR = float(r.get(KAPR_key))
-    overall_KAPR += KAPRINC
-    r.incrbyfloat(KAPR_key, KAPRINC)
-    ret['KAPR'] = round(100*overall_KAPR, 1)
+    pair_num1 = str(id1.split('-')[0])
+    attr_num1 = str(id1.split('-')[2])
+    ret1 = dm.open_cell(user_key, full_data, working_data, pair_num1, attr_num1, mode, r, kapr_limit)
+    pair_num2 = str(id3.split('-')[0])
+    attr_num2 = str(id3.split('-')[2])
+    ret2 = dm.open_cell(user_key, full_data, working_data, pair_num2, attr_num2, mode, r, kapr_limit)
 
-    # refresh the delta of KAPR
-    new_delta_list = dm.KAPR_delta(DATASET, pair, display_status1)
-    ret['new_delta'] = new_delta_list
+    if ret2['result'] == 'fail':
+        return jsonify(ret2)
 
-    return jsonify(ret)
-
-
-@app.route('/record_linkage/next')
-def show_record_linkage_next():
-    current_page = int(r.get(session['user_cookie']+'_current_page'))+1
-    r.incr(session['user_cookie']+'_current_page')
-    is_last_page = 0
-    if current_page == int(r.get(session['user_cookie'] + '_page_size'))-1:
-        is_last_page = 1
-
-    pairs_formatted = DATA_PAIR_LIST.get_data_display('masked')[2*config.DATA_PAIR_PER_PAGE*current_page:2*config.DATA_PAIR_PER_PAGE*(current_page+1)]
-    data = zip(pairs_formatted[0::2], pairs_formatted[1::2])
-    icons = DATA_PAIR_LIST.get_icons()[config.DATA_PAIR_PER_PAGE*current_page:config.DATA_PAIR_PER_PAGE*(current_page+1)]
-    ids_list = DATA_PAIR_LIST.get_ids()[2*config.DATA_PAIR_PER_PAGE*current_page:2*config.DATA_PAIR_PER_PAGE*(current_page+1)]
-    ids = zip(ids_list[0::2], ids_list[1::2])
-
-    # set the user-display-status as masked for all cell
-    for id1 in ids_list:
-        for i in range(6):
-            key = session['user_cookie'] + '-' + id1[i]
-            r.set(key, 'M')
-
-    # get the delta information
-    #delta = dm.get_delta_for_dataset(DATASET, DATA_PAIR_LIST.get_raw_data()[12:])
-    delta = list()
-    for i in range(config.DATA_PAIR_PER_PAGE*current_page, config.DATA_PAIR_PER_PAGE*(current_page+1)):
-        data_pair = DATA_PAIR_LIST.get_data_pair_by_index(i)
-        delta += dm.KAPR_delta(DATASET, data_pair, ['M', 'M', 'M', 'M', 'M', 'M'])
-    # make delta to be a dict
-    delta_dict = dict()
-    for d in delta:
-        delta_dict[d[0]] = d[1]
-
-    page_content = render_template('record_linkage_next.html', data=data, icons=icons, ids=ids)
     ret = {
-        'delta': delta_dict,
-        'is_last_page': is_last_page,
-        'page_content': page_content
+        'value1': ret1['value1'],
+        'value2': ret1['value2'],
+        'value3': ret2['value1'],
+        'value4': ret2['value2'],
+        'id': ret1['id'],
+        'mode': ret2['mode'],
+        'KAPR': ret2['KAPR'],
+        'result': ret2['result'],
+        'new_delta': ret2['new_delta']
     }
+
     return jsonify(ret)
-
-
-@app.route('/select')
-def select_panel():
-    return render_template('select_panel2.html')
-
-
-@app.route('/test')
-def test():
-    return render_template('bootstrap_test.html')
 
 
 @app.route('/next', methods=['GET', 'POST'])
@@ -399,15 +300,176 @@ def next():
     sequence = config.SEQUENCE
     state = session['state'] + 1
     session['state'] += 1
-
-    return redirect(url_for(sequence[state]))
+    user_id = session["user_id"]
+    r.set("session_"+str(user_id)+"_state", str(session['state']))
+    return redirect(url_for(get_url_for_index(session['state'])))
 
 
 @app.route('/pull_data')
 def pull_data():
-    user_data_key = session['user_cookie'] + '_user_data'
+    user_data_key = session['user_id'] + '_user_data'
     user_data = r.get(user_data_key)
-    return user_data
+    if not user_data:
+        return render_template('show_data.html', data='No data is collected for this user.', uid=str(session['user_id']))
+
+    data = ud.parse_user_data(user_data)
+
+    ret = ''
+    for d in data:
+        if 'type' in d and d['type'] == 'performance1':
+            ret += ('section 1: ' + d['value'] + ';\n')
+    for d in data:
+        if 'type' in d and d['type'] == 'performance2':
+            ret += ('section 2: ' + d['value'] + ';\n')
+    for d in data:
+        if 'type' in d and d['type'] == 'final_KAPR_section1':
+            ret += ('Final privacy budget used in section 1: ' + str(round(100*float(d['value']), 2)) + '% out of ' + d['total'] + '%;\n')
+    
+    ret = ret + '\n' + user_data
+    ret = ret.replace('\n', '<br />')
+
+    return render_template('show_data.html', data=ret, uid=str(session['user_id']))
 
 
-app.secret_key = 'a9%z$/`9h8FMnh893;*g783'
+@app.route('/pull_data_all')
+def pull_data_all():
+    ret = ''
+    for key in r.scan_iter("*_user_data"):
+        user_data = r.get(key)
+        ret = ret + user_data + '<br/><br/><br/>'
+    return ret
+
+
+@app.route('/thankyou')
+@state_machine('show_thankyou')
+def show_thankyou():
+    
+    user_data_key = session['user_id'] + '_user_data'
+    
+    session_end = {
+        'uid': session['user_id'],
+        'type': 'session_end',
+        'value': int(time.time()),
+        'timestamp': int(time.time()),
+        'source': 'server'
+    }
+    r.append(user_data_key, ud.format_user_data(session_end))
+
+    # grading section 2
+    user_data_key = session['user_id'] + '_user_data'
+    #r.append(user_data_key, 'type: session_end,timestamp: '+str(time.time())+';\n')
+    user_data = r.get(user_data_key)
+    data = ud.parse_user_data(user_data)
+    # TODO! TODO! TODO! TODO! TODO! TODO! TODO! TODO! TODO! TODO! 
+    # SECTION 2 pair num must be different from section 1! section 2 num be a factor of 6
+    result = ud.grade_final_answer(data, get_main_section_data(session['user_id'], 2))
+    performance2 = {
+        'uid': session['user_id'],
+        'type': 'performance2',
+        'value': str(result[0]) + ' out of ' + str(result[1]),
+        'timestamp': int(time.time()),
+        'source': 'server'
+    }
+    r.append(user_data_key, ud.format_user_data(performance2))
+
+    # get final KAPR
+    KAPR_key = session['user_id'] + '_KAPR'
+    final_KAPR = r.get(KAPR_key)
+    kapr_limit = r.get(session['user_id']+'section1_kapr_limit')
+    if final_KAPR is not None:
+        kapr_info = 'type:final_KAPR_section1, value:' + str(final_KAPR) + ',total:' + kapr_limit + ';\n'
+        kapr_info = {
+            'uid': session['user_id'],
+            'type': 'final_KAPR_section1',
+            'value': str(final_KAPR),
+            'timestamp': int(time.time()),
+            'source': 'server',
+            'total': kapr_limit
+        }
+        r.append(user_data_key, ud.format_user_data(kapr_info))
+
+    data = ud.parse_user_data(r.get(user_data_key))
+    # dl.save_data_to_json('data/saved/'+str(session['user_id'])+'.json', user_data)
+    extend_data = ''
+    for d in data:
+        if 'type' in d and d['type'] == 'performance1':
+            extend_data += ('section 1: ' + d['value'] + ';\n')
+    for d in data:
+        if 'type' in d and d['type'] == 'performance2':
+            extend_data += ('section 2: ' + d['value'] + ';\n')
+    for d in data:
+        if 'type' in d and d['type'] == 'final_KAPR_section1':
+            extend_data += ('Final privacy budget used in section 1: ' + str(round(100*float(d['value']), 2)) + '% out of ' + d['total'] + '%;\n')
+    extend_data = extend_data + r.get(user_data_key)
+
+    if r.get("data_choice_" + session['user_id']) != "collect":
+        # print "discareded"
+        r.delete(user_data_key)
+        # print r.get(user_data_key)
+        user_data = 'type:user_id,id:'+str(session['user_id'])+';\n'
+        user_data = user_data + 'type:consent,value:NoDataCollection;\n'
+        r.set(user_data_key, user_data)
+
+    # send the data to email.
+    #msg = Message(subject='user data: ' + session['user_id'], body=extend_data, recipients=['mindfil.ppirl@gmail.com'])
+    #mail.send(msg)
+
+    # clear user data in redis
+    #for key in r.scan_iter("prefix:"+session['user_id']):
+    #    r.delete(key)
+
+    return render_template('thankyou.html', uid=str(session['user_id']))
+
+
+'''
+@app.route('/section1_start')
+@state_machine('show_section1_startpage')
+def show_section1_startpage():
+    return render_template('section1_start.html')
+'''
+
+@app.route('/id')
+def get_id():
+    if session['user_id']:
+        return str(session['user_id'])
+    return 'Null'
+
+
+@app.route('/flushdb')
+def flush_redis():
+    r.flushdb()
+    return 'redis flushed.'
+
+    admin_key = request.args.get("key")
+    if r.get('admin_key' + admin_key) is not None:
+        r.flushdb()
+        return 'redis flushed.'
+    else:
+        return 'Failed: premission denied.'
+
+
+@app.route('/save_data_choice', methods=['POST'])
+def save_data_choice():
+    data_choice = request.form.get('data_choice')
+    r.set("data_choice_" + session['user_id'], data_choice)
+    print r.get("data_choice_" + session['user_id'])
+    return redirect(url_for('next'))
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html')
+
+
+@app.route('/get_ustudy_setting')
+def get_ustudy_setting():
+    user_id = session['user_id']
+    ustudy_mode = r.get(user_id+'_ustudy_mode')
+    ustudy_budget = r.get(user_id+'_ustudy_budget')
+    result = 'mode:'+ustudy_mode
+    ret = {
+        'result': result,
+    }
+    return jsonify(ret)
+
+

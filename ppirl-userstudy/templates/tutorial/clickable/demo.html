@@ -1,0 +1,26 @@
+{% extends "./tutorial/clickable/template_clickable_image.html" %}
+{% block content %}
+
+<div>
+   <!-- <h5>This is a clickable interface. Essentially, you can click on ANY masked cell to open it up.</h5> -->
+   <h5>You can click on masked cells to see more.</h5>
+   <br>
+   <!-- <img src="static/images/tutorial/clickable.gif" style="border-width: 10px; border-style: solid;"> -->
+   <video autoplay="autoplay"  style="border-width: 3px; border-style: solid;" controls>
+   <source src="/static/images/tutorial/clickable/demo.mp4" type="video/mp4" /></video>
+</div>
+
+<br><br>
+
+<h5>Go ahead and try opening a few cells!</h5>
+
+{% include "./tutorial/clickable/table.html" %}
+
+<br>
+
+{% include 'tutorial/clickable/submit_button.html' %}
+
+<br>
+        
+{% endblock %}
+

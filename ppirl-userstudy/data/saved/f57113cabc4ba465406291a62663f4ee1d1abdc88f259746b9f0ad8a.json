@@ -1,0 +1,5 @@
+type: user_id,id: 16;
+type: session_start,timestamp: 1520113790.74;
+type: session_end,timestamp: 1520113800.76;
+type:performance1,content:0 out of 36;
+type:performance2,content:0 out of 294;

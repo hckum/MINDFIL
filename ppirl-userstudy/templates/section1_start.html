@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>PPIRL</title>
+         <link rel="shortcut icon" href="/static/images/site/favicon.ico" type="image/x-icon" />
+
+        <link rel="stylesheet" href="/static/css/site.css" type="text/css">
+        <link rel="stylesheet" href="/static/css/style.css?q=11" type="text/css">
+        <link rel="stylesheet" href="/static/css/ionicons.min.css" type="text/css">
+        <link rel="stylesheet" href="/static/css/select.css?q=11" type="text/css">
+        <link rel="stylesheet" href="/static/css/bootstrap.min.css" type="text/css">
+        <link rel="stylesheet" href="/static/css/footer.css" type="text/css">
+        <link rel="stylesheet" href="/static/css/tutorial.css" type="text/css">
+        
+        <script src="/static/javascript/jquery-3.2.1.min.js"></script>
+        <script src="/static/javascript/popper.min.js"></script>
+        <script src="/static/javascript/bootstrap.min.js"></script>
+        <script src="/static/javascript/site.js"></script>
+        <script src="/static/javascript/choice_panel.js"></script>
+        <script src="/static/javascript/grading.js"></script>
+        <script src="/static/javascript/form_submit.js"></script>
+        <script type=text/javascript>
+            $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+            // $GRADING_URL = "{{ gradin_url }}"
+            $THIS_URL = "{{ thisurl }}";
+            $NEXT_URL = $SCRIPT_ROOT + "{{ url_for('next') }}";
+            $user_data = "user in url: " + $THIS_URL + ";";
+        </script>
+    </head>
+
+    <body>
+
+        <img src="/static/images/module_intros/main_study.png" class="ImageBorder" />  
+
+        <div class="submit_div">
+            <form>
+                <button formaction="{{ url_for('next') }}" id="button_3" class="submit_button">Next</button>
+            </form>
+        </div>       
+
+        <div id="footer_filler"></div>
+        <div class="footer">
+            <div class="container">
+                <span class="text-muted">Copyright © 2017 • Population Informatics Research Group • Texas A&M University</span>
+            </div>
+        </div>
+    </body>
+
+</html>

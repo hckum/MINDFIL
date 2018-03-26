@@ -5,8 +5,8 @@
                             {% else %}
                         <div class="table_row table_row_odd">
                             {% endif %}
-                            <div class="table_col1 pair_number">{{ loop.index+6 }}</div>
-                            <div class="table_col2 clickable_cell" id = "test_col" mode="masked">
+                            <div class="table_col1 pair_number">{{ loop.index0+pair_num_base }}</div>
+                            <div class="table_col2 {% if ustudy_mode != 1 %}clickable_cell{% endif %}" id = "test_col" mode="masked">
                                 <div class="sub_row1" id="{{ ids[loop.index0][0][0] }}">
                                     {{ r[0][1]|safe }}
                                 </div>
@@ -50,8 +50,8 @@
                                 </div>
                             </div>
                             
-                            <div class="{% if 'svg' in icons[loop.index0][2] %}names_big_cell clickable_big_cell{% endif %}">
-                            <div class="table_col4 table_names {% if 'svg' not in icons[loop.index0][2] %}clickable_cell{% endif %}" mode="masked">
+                            <div class="{% if 'name_swap' in icons[loop.index0][2] %}names_big_cell {% if ustudy_mode != 1 %}clickable_big_cell{% endif %}{% endif %}">
+                            <div class="table_col4 table_names {% if 'name_swap' not in icons[loop.index0][2] %}{% if ustudy_mode != 1 %}clickable_cell{% endif %}{% endif %}" mode="masked">
                                 <div class="sub_row1" id="{{ ids[loop.index0][0][1] }}">
                                     {{ r[0][3]|safe }}
                                 </div>
@@ -65,7 +65,7 @@
                             <div class="table_col4_5">
                                 {{ icons[loop.index0][2]|safe }}
                             </div>
-                            <div class="table_col5 table_names {% if 'svg' not in icons[loop.index0][2] %}clickable_cell{% endif %}" mode="masked">
+                            <div class="table_col5 table_names {% if 'name_swap' not in icons[loop.index0][2] %}{% if ustudy_mode != 1 %}clickable_cell{% endif %}{% endif %}" mode="masked">
                                 <div class="sub_row1" id="{{ ids[loop.index0][0][2] }}">
                                     {{ r[0][4]|safe }}
                                 </div>
@@ -109,7 +109,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="table_col7 clickable_cell" mode="masked">
+                            <div class="table_col7 {% if ustudy_mode != 1 %}clickable_cell{% endif %}" mode="masked">
                                 <div class="sub_row1" id="{{ ids[loop.index0][0][3] }}">
                                     {{ r[0][6]|safe }}
                                 </div>
@@ -120,7 +120,7 @@
                                     {{ r[1][6]|safe }}
                                 </div>
                             </div>
-                            <div class="table_col8 clickable_cell" mode="masked">
+                            <div class="table_col8 {% if ustudy_mode != 1 %}clickable_cell{% endif %}" mode="masked">
                                 <div class="sub_row1" id="{{ ids[loop.index0][0][4] }}">
                                     {{ r[0][7]|safe }}
                                 </div>
@@ -131,7 +131,7 @@
                                     {{ r[1][7]|safe }}
                                 </div>
                             </div>
-                            <div class="table_col9 clickable_cell" mode="masked">
+                            <div class="table_col9 {% if ustudy_mode != 1 %}clickable_cell{% endif %}" mode="masked">
                                 <div class="sub_row1" id="{{ ids[loop.index0][0][5] }}">
                                     {{ r[0][8]|safe }}
                                 </div>
@@ -162,17 +162,17 @@
                                     <br/>
                                     <ul class="mrate choice-button">
                                         <li class="ion-android-arrow-back"></li>
-                                        <li class="ion-android-radio-button-off input_radio pair1" id="q{{ loop.index }}a1"></li>
+                                        <li class="ion-android-radio-button-off input_radio pair1" id="p{{ r[0][0]|safe }}a1"></li>
                                         <li class="ion-android-remove"></li>
-                                        <li class="ion-android-radio-button-off input_radio pair1" id="q{{ loop.index }}a2"></li>
+                                        <li class="ion-android-radio-button-off input_radio pair1" id="p{{ r[0][0]|safe }}a2"></li>
                                         <li class="ion-android-remove"></li>
-                                        <li class="ion-android-radio-button-off input_radio pair1" id="q{{ loop.index }}a3"></li>
+                                        <li class="ion-android-radio-button-off input_radio pair1" id="p{{ r[0][0]|safe }}a3"></li>
                                         <li class="ion-android-add"></li>
-                                        <li class="ion-android-radio-button-off input_radio pair1" id="q{{ loop.index }}a4"></li>
+                                        <li class="ion-android-radio-button-off input_radio pair1" id="p{{ r[0][0]|safe }}a4"></li>
                                         <li class="ion-android-remove"></li>
-                                        <li class="ion-android-radio-button-off input_radio pair1" id="q{{ loop.index }}a5"></li>
+                                        <li class="ion-android-radio-button-off input_radio pair1" id="p{{ r[0][0]|safe }}a5"></li>
                                         <li class="ion-android-remove"></li>
-                                        <li class="ion-android-radio-button-off input_radio pair1" id="q{{ loop.index }}a6"></li>
+                                        <li class="ion-android-radio-button-off input_radio pair1" id="p{{ r[0][0]|safe }}a6"></li>
                                         <li class="ion-android-arrow-forward"></li>
                                     </ul>
                                     <br/>

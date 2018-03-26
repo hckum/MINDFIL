@@ -28,11 +28,16 @@ $(document).ready(function(){
         }
 
         // save the user click data
-        $this_click = "user click: " + $selected_id;
+        $type = "type:answer";
+        $this_click = "value:" + $selected_id;
         var dt = new Date();
-        $click_time = "click time: " + dt.getHours() + "h" + dt.getMinutes() + "m" + dt.getSeconds() + "s";
-        $click_timestamp = "click timestamp: " + dt.getTime();
-        $data = [$this_click, $click_time, $click_timestamp].join()
+        $click_timestamp = "timestamp:" + dt.getTime();
+        $data = [$type, $this_click, $click_timestamp].join();
         $user_data += $data + ";";
     })
 })
+
+function disable_choice_panel() {
+    var $options = $("li.input_radio");
+    $options.unbind("click");
+}
