@@ -1,0 +1,17 @@
+        <div id="footer_filler"></div>
+        <footer class="footer">
+            <div class="container">
+                <span class="text-muted">
+                    {% if uid is defined %}
+                        User {{ uid }} • 
+                    {% endif %}
+                    <span id="ustudy_info"></span>
+                Copyright © 2018 • Population Informatics Research Group • Texas A&amp;M University<br/>
+                <script>
+                    $.getJSON('/get_ustudy_setting',{}, function(data) {
+                        $("#ustudy_info").html(data.result);
+                    });
+                </script>               
+                </span>
+            </div>
+        </footer>

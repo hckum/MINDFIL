@@ -1,0 +1,22 @@
+{% extends "./tutorial/clickable/template_clickable_image.html" %}
+{% block content %}
+
+    <h4>First let's take a look into the problem. </br></br>
+    Everything except the ID, DoB and Last Name are identical. </br></br>
+    The mentioned fields are similar though not identical.</h4>
+
+    </br>
+   
+    <!-- <video id="decision_making" autoplay="autoplay" width="90%" style="border-width: 3px; border-style: solid; margin-left: 0%;" controls><source src="/static/images/tutorial/clickable/decision_making_1.mp4" type="video/mp4" /></video> -->
+    <img src="/static/images/tutorial/clickable/demo.png" class="ImageBorder" style="width: 90%; margin-left: 0%" />
+
+    </br></br>
+
+    <h4>Next, let us look at the DoB on the next page (click the next button).</h4>    
+
+{% include 'tutorial/clickable/submit_button.html' %}
+  
+{% endblock %}
+
+
+

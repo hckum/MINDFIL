@@ -6,7 +6,7 @@
 DATA_MODE_BASE = ['base', 'base', 'base', 'base', 'base', 'base']
 DATA_MODE_FULL = ['full', 'full', 'full', 'full', 'full', 'full']
 DATA_MODE_MASKED = ['masked', 'masked', 'masked', 'masked', 'masked', 'masked']
-DATA_MODE_MINIMUM = ['masked', 'partial', 'partial', 'partial', 'full', 'masked']
+DATA_MODE_MINIMUM = ['partial', 'partial', 'partial', 'partial', 'full', 'masked']
 DATA_MODE_MODERATE = ['partial', 'partial', 'partial', 'partial', 'full', 'masked']
 
 
@@ -34,12 +34,12 @@ def get_string_display(attr1, attr2, helper1, helper2, attribute_mode):
     elif attribute_mode == 'full':
         if not attr1 or not attr2:
             if not attr1:
-                attr1_display = '<img src="../static/images/site/missing.png" alt="missing" class="missing_icon">'
+                attr1_display = '<img src="/static/images/site/missing.png" alt="missing" class="missing_icon">'
             else:
                 attr1_display = attr1
 
             if not attr2:
-                attr2_display = '<img src="../static/images/site/missing.png" alt="missing" class="missing_icon">'
+                attr2_display = '<img src="/static/images/site/missing.png" alt="missing" class="missing_icon">'
             else:
                 attr2_display = attr2
         else:
@@ -84,12 +84,12 @@ def get_string_display(attr1, attr2, helper1, helper2, attribute_mode):
     elif attribute_mode == 'partial':
         if not attr1 or not attr2:
             if not attr1:
-                attr1_display = '<img src="../static/images/site/missing.png" alt="missing" class="missing_icon">'
+                attr1_display = '<img src="/static/images/site/missing.png" alt="missing" class="missing_icon">'
             else:
                 attr1_display = '*'*len(attr1)
 
             if not attr2:
-                attr2_display = '<img src="../static/images/site/missing.png" alt="missing" class="missing_icon">'
+                attr2_display = '<img src="/static/images/site/missing.png" alt="missing" class="missing_icon">'
             else:
                 attr2_display = '*'*len(attr2)
         else:
@@ -97,8 +97,8 @@ def get_string_display(attr1, attr2, helper1, helper2, attribute_mode):
                 attr1_display = len(attr1)*'@'
                 attr2_display = len(attr2)*'&'
             elif helper1 == helper2:
-                attr1_display = '<img src="../static/images/site/checkmark.png" alt="checkmark" class="freq_icon">'
-                attr2_display = '<img src="../static/images/site/checkmark.png" alt="checkmark" class="freq_icon">'
+                attr1_display = '<img src="/static/images/site/checkmark.png" alt="checkmark" class="freq_icon">'
+                attr2_display = '<img src="/static/images/site/checkmark.png" alt="checkmark" class="freq_icon">'
             else:
                 attr1_display = ''
                 attr2_display = ''
@@ -137,12 +137,12 @@ def get_string_display(attr1, attr2, helper1, helper2, attribute_mode):
     elif attribute_mode == 'masked':
         if not attr1 or not attr2:
             if not attr1:
-                attr1_display = '<img src="../static/images/site/missing.png" alt="missing" class="missing_icon">'
+                attr1_display = '<img src="/static/images/site/missing.png" alt="missing" class="missing_icon">'
             else:
                 attr1_display = '*'*len(attr1)
 
             if not attr2:
-                attr2_display = '<img src="../static/images/site/missing.png" alt="missing" class="missing_icon">'
+                attr2_display = '<img src="/static/images/site/missing.png" alt="missing" class="missing_icon">'
             else:
                 attr2_display = '*'*len(attr2)
         else:
@@ -150,8 +150,8 @@ def get_string_display(attr1, attr2, helper1, helper2, attribute_mode):
                 attr1_display = len(attr1)*'@'
                 attr2_display = len(attr2)*'&'
             elif helper1 == helper2:
-                attr1_display = '<img src="../static/images/site/checkmark.png" alt="checkmark" class="freq_icon">'
-                attr2_display = '<img src="../static/images/site/checkmark.png" alt="checkmark" class="freq_icon">'
+                attr1_display = '<img src="/static/images/site/checkmark.png" alt="checkmark" class="freq_icon">'
+                attr2_display = '<img src="/static/images/site/checkmark.png" alt="checkmark" class="freq_icon">'
             else:
                 attr1_display = ''
                 attr2_display = ''
@@ -213,12 +213,12 @@ def get_date_display(attr1, attr2, helper1, helper2, attribute_mode):
     elif attribute_mode == 'full':
         if not attr1 or not attr2:
             if not attr1:
-                attr1_display = '<img src="../static/images/site/missing.png" alt="missing" class="missing_icon">'
+                attr1_display = '<img src="/static/images/site/missing.png" alt="missing" class="missing_icon">'
             else:
                 attr1_display = attr1
 
             if not attr2:
-                attr2_display = '<img src="../static/images/site/missing.png" alt="missing" class="missing_icon">'
+                attr2_display = '<img src="/static/images/site/missing.png" alt="missing" class="missing_icon">'
             else:
                 attr2_display = attr2
         else:
@@ -263,12 +263,12 @@ def get_date_display(attr1, attr2, helper1, helper2, attribute_mode):
     elif attribute_mode == 'partial':
         if not attr1 or not attr2:
             if not attr1:
-                attr1_display = '<img src="../static/images/site/missing.png" alt="missing" class="missing_icon">'
+                attr1_display = '<img src="/static/images/site/missing.png" alt="missing" class="missing_icon">'
             else:
                 attr1_display = '**/**/****'
 
             if not attr2:
-                attr2_display = '<img src="../static/images/site/missing.png" alt="missing" class="missing_icon">'
+                attr2_display = '<img src="/static/images/site/missing.png" alt="missing" class="missing_icon">'
             else:
                 attr2_display = '**/**/****'
         else:
@@ -276,8 +276,8 @@ def get_date_display(attr1, attr2, helper1, helper2, attribute_mode):
                 attr1_display = '@@/@@/@@@@'
                 attr2_display = '&&/&&/&&&&'
             elif helper1 == helper2:
-                attr1_display = '<img src="../static/images/site/checkmark.png" alt="checkmark" class="freq_icon">'
-                attr2_display = '<img src="../static/images/site/checkmark.png" alt="checkmark" class="freq_icon">'
+                attr1_display = '<img src="/static/images/site/checkmark.png" alt="checkmark" class="freq_icon">'
+                attr2_display = '<img src="/static/images/site/checkmark.png" alt="checkmark" class="freq_icon">'
             else:
                 attr1_display = ''
                 attr2_display = ''
@@ -313,12 +313,12 @@ def get_date_display(attr1, attr2, helper1, helper2, attribute_mode):
     elif attribute_mode == 'masked':
         if not attr1 or not attr2:
             if not attr1:
-                attr1_display = '<img src="../static/images/site/missing.png" alt="missing" class="missing_icon">'
+                attr1_display = '<img src="/static/images/site/missing.png" alt="missing" class="missing_icon">'
             else:
                 attr1_display = '**/**/****'
 
             if not attr2:
-                attr2_display = '<img src="../static/images/site/missing.png" alt="missing" class="missing_icon">'
+                attr2_display = '<img src="/static/images/site/missing.png" alt="missing" class="missing_icon">'
             else:
                 attr2_display = '**/**/****'
         else:
@@ -326,8 +326,8 @@ def get_date_display(attr1, attr2, helper1, helper2, attribute_mode):
                 attr1_display = '@@/@@/@@@@'
                 attr2_display = '&&/&&/&&&&'
             elif helper1 == helper2:
-                attr1_display = '<img src="../static/images/site/checkmark.png" alt="checkmark" class="freq_icon">'
-                attr2_display = '<img src="../static/images/site/checkmark.png" alt="checkmark" class="freq_icon">'
+                attr1_display = '<img src="/static/images/site/checkmark.png" alt="checkmark" class="freq_icon">'
+                attr2_display = '<img src="/static/images/site/checkmark.png" alt="checkmark" class="freq_icon">'
             else:
                 attr1_display = ''
                 attr2_display = ''
@@ -366,23 +366,23 @@ def get_character_display(attr1, attr2,  helper1, helper2, attribute_mode):
     """
     if attribute_mode == 'base' or attribute_mode == 'full':
         if not attr1:
-            attr1 = '<img src="../static/images/site/missing.png" alt="missing" class="missing_icon">'
+            attr1 = '<img src="/static/images/site/missing.png" alt="missing" class="missing_icon">'
         if not attr2:
-            attr2 = '<img src="../static/images/site/missing.png" alt="missing" class="missing_icon">'
+            attr2 = '<img src="/static/images/site/missing.png" alt="missing" class="missing_icon">'
         return [attr1, attr2]
     else:
         if not attr1 or not attr2:
             if not attr1:
-                attr1_display = '<img src="../static/images/site/missing.png" alt="missing" class="missing_icon">'
+                attr1_display = '<img src="/static/images/site/missing.png" alt="missing" class="missing_icon">'
             else:
                 attr1_display = '*'
             if not attr2:
-                attr2_display = '<img src="../static/images/site/missing.png" alt="missing" class="missing_icon">'
+                attr2_display = '<img src="/static/images/site/missing.png" alt="missing" class="missing_icon">'
             else:
                 attr2_display = '*'
         elif attr1 == attr2:
-            attr1_display = '<img src="../static/images/site/checkmark.png" alt="checkmark" class="freq_icon">'
-            attr2_display = '<img src="../static/images/site/checkmark.png" alt="checkmark" class="freq_icon">'
+            attr1_display = '<img src="/static/images/site/checkmark.png" alt="checkmark" class="freq_icon">'
+            attr2_display = '<img src="/static/images/site/checkmark.png" alt="checkmark" class="freq_icon">'
         else:
             attr1_display = '@'
             attr2_display = '&'
@@ -394,13 +394,13 @@ def get_name_freq(freq, mode):
         return ''
     freq = int(freq)
     if freq == 1:
-        return '<img src="../static/images/site/unique.png" alt="unique" class="freq_icon">'
+        return '<img src="/static/images/site/unique.png" alt="unique" class="freq_icon">'
     elif freq <= 5:
-        return '<img src="../static/images/site/rare.png" alt="rare" class="freq_icon">'
+        return '<img src="/static/images/site/rare.png" alt="rare" class="freq_icon">'
     elif freq <= 100:
-        return '<img src="../static/images/site/common.png" alt="common" class="freq_icon">'
+        return '<img src="/static/images/site/common.png" alt="common" class="freq_icon">'
     else:
-        return '<img src="../static/images/site/infinity.png" alt="infinity" class="freq_icon">'
+        return '<img src="/static/images/site/infinity.png" alt="infinity" class="freq_icon">'
 
 
 def get_ffreq(freq, mode='full'):
@@ -496,8 +496,8 @@ def format_data(data, data_mode):
     ]
     data_mode = full
     output: [
-        ['1', '<img src="../static/images/site/missing.png" alt="missing" class="missing_icon">', '<img src="../static/images/site/infinity.png" alt="infinity" class="freq_icon">', 'NELSON', 'MITCHELL', '<img src="../static/images/site/infinity.png" alt="infinity" class="freq_icon">', '03/13/1975','M','B'],
-        ['1', '1000142704', '<img src="../static/images/site/infinity.png" alt="infinity" class="freq_icon">', 'NELSON', 'MITCHELL <span style="color:green">SR</span>', '<img src="../static/images/site/infinity.png" alt="infinity" class="freq_icon">', '07/03/1949','M','B']
+        ['1', '<img src="/static/images/site/missing.png" alt="missing" class="missing_icon">', '<img src="/static/images/site/infinity.png" alt="infinity" class="freq_icon">', 'NELSON', 'MITCHELL', '<img src="/static/images/site/infinity.png" alt="infinity" class="freq_icon">', '03/13/1975','M','B'],
+        ['1', '1000142704', '<img src="/static/images/site/infinity.png" alt="infinity" class="freq_icon">', 'NELSON', 'MITCHELL <span style="color:green">SR</span>', '<img src="/static/images/site/infinity.png" alt="infinity" class="freq_icon">', '07/03/1949','M','B']
     ]
     """
     ret = list()
@@ -515,42 +515,104 @@ def get_icon_string(s1, s2, helper1, helper2):
             return ''
         else:
             if '*' not in helper1 and '*' not in helper2:
-                return '<embed class="diff_icon" src="../static/images/site/diff.svg" type="image/svg+xml" />'
+                return '<img class="diff_icon" src="/static/images/site/diff.png" alt="diff">'
             else:
+                icons = list()
                 ret = ''
                 i = 0
                 j = 0
                 k = 0
+                prev_indel = 0
+                prev_repl = 0
                 while k < len(helper1):
-                    if helper1[k] == '*':
-                        ret += '<span class="hidden_element">*</span>'
+                    if helper1[k] == '*' and helper2[k] == '*':
+                        # ret += '<img class="space_icon_full" src="/static/images/site/space.png" alt="space">'
+                        # ret += '<span class="hidden_element">*</span>' 
+                        icons.append('E')
                         k += 1
                         i += 1
                         j += 1
                     elif k+1 < len(helper1) and i+1 < len(s1) and j+1 < len(s2) and helper1[k] not in ['*', '_', '?'] and helper1[k+1] not in ['*', '_', '?'] and s1[i] == s2[j+1] and s1[i+1] == s2[j]:
-                        ret += '<img class="transpose_icon" src="../static/images/site/transpose.png" alt="transpose">'
+                        # ret += '<img class="transpose_icon" src="/static/images/site/transpose.png" alt="transpose">'
+                        icons.append('T')
+                        icons.append('T')
                         k += 2
                         i += 2
                         j += 2
                     elif helper1[k] == '_' or helper1[k] == '?':
-                        ret += '<img class="indel_icon" src="../static/images/site/indel.png" alt="indel">'
+                        if helper1[k] == "_":
+                            # if not k+1 == len(helper1) and helper1[k+1] == "_":
+                               # ret += '<img class="space_icon" src="/static/images/site/space.png" alt="space">'
+                               # prev_indel += 1
+                            # else:
+                               # ret += '<img class="indel_icon" src="/static/images/site/indel.png" alt="indel">'
+                               # for z in range(prev_indel):
+                                   # ret += '<img class="space_icon" src="/static/images/site/space.png" alt="space">' 
+                               # prev_indel = 0
+
+                            icons.append('I')
                         k += 1
                         j += 1
                     elif helper2[k] == '_' or helper2[k] == '?':
-                        ret += '<img class="indel_icon" src="../static/images/site/indel.png" alt="indel">'
+                        if helper2[k] == '_':
+                            # if not k+1 == len(helper2) and helper2[k+1] == "_":
+                            #    ret += '<img class="space_icon" src="/static/images/site/space.png" alt="space">'
+                            #    prev_indel += 1
+                            # else:
+                            #    ret += '<img class="indel_icon" src="/static/images/site/indel.png" alt="indel">'
+                            #    for z in range(prev_indel):
+                            #        ret += '<img class="space_icon" src="/static/images/site/space.png" alt="space">' 
+                            #    prev_indel = 0
+                            icons.append('I')
                         k += 1
                         i += 1
                     else:
-                        ret += '<img class="replace_icon" src="../static/images/site/replace.png" alt="replace">'
+                        # if not k+1 == len(helper1) and not helper1[k+1] in ["*", "_", "?"] and not helper2[k+1] in ["*", "_", "?"]:
+                        #    ret += '<img class="space_icon" src="/static/images/site/space.png" alt="space">'
+                        #    prev_repl += 1
+                        # else:
+                        #    ret += '<img class="replace_icon" src="/static/images/site/replace.png" alt="replace">'
+                        #    for z in range(prev_repl):
+                        #            ret += '<img class="space_icon" src="/static/images/site/space.png" alt="space">' 
+                        #    prev_repl = 0
+                        icons.append('R')
                         k += 1
                         i += 1
                         j += 1
+
+                end = 0
+                i = 0
+                while i < len(icons):
+                    item = ''
+                    if icons[i] == 'R':
+                        l = i;
+                        while i+1 < len(icons) and icons[i+1] == 'R':
+                            i += 1
+                        pos = 0.5*(l+i)
+                        item = '<img class="replace_icon" src="/static/images/site/replace.png" alt="replace" style="margin-left:%fpx;">' % (8.8*pos-end-2)
+                        end = 8.8*pos-2 + 13
+                    elif icons[i] == 'I':
+                        l = i;
+                        while i+1 < len(icons) and icons[i+1] == 'I':
+                            i += 1
+                        pos = 0.5*(l+i)
+                        item = '<img class="indel_icon" src="/static/images/site/indel.png" alt="indel" style="margin-left:%fpx;">' % (8.8*pos-end-2)
+                        end = 8.8*pos-2 + 13
+                    elif icons[i] == 'T':
+                        pos = i;
+                        item = '<img class="transpose_icon" src="/static/images/site/transpose.png" alt="transpose" style="margin-left:%fpx;">' % (8.8*pos-end)
+                        end = 8.8*pos + 20
+                        i += 1
+                    ret += item
+                    i += 1
+                item = '<img class="space_icon" src="/static/images/site/space.png" alt="space" style="margin-left:%fpx;">' % (8.8*len(icons)-end)
+                ret += item
                 return ret
 
 
 def get_icon_nameswap(n11, n12, n21, n22):
     if n11 != n21 and n12 != n22 and n11 == n22 and n21 == n12:
-        return '<embed class="name_swap_icon" src="../static/images/site/name_swap.svg" type="image/svg+xml" />'
+        return '<img class="name_swap_icon" src="/static/images/site/name_swap.png" alt="name_swap">'
     else:
         return ''
 
@@ -563,7 +625,7 @@ def get_icon_date(d1, d2, helper1, helper2):
             return ''
         else:
             if '*' not in helper1 and '*' not in helper2:
-                return '<embed class="diff_icon" src="../static/images/site/diff.svg" type="image/svg+xml" />'
+                return '<img class="diff_icon" src="/static/images/site/diff.png" alt="diff">'
             else:
                 ret = ''
                 M1 = helper1[0:2]
@@ -574,17 +636,20 @@ def get_icon_date(d1, d2, helper1, helper2):
                 Y2 = helper2[6:]
                 k = 0
                 if M1 != '**' and D1 != '**' and M1 == D2 and M2 == D1:
-                    ret += '<embed class="swap_date_icon" src="../static/images/site/swap_date.svg" type="image/svg+xml" />'
+                    ret += '<img class="swap_date_icon" src="/static/images/site/swap_date.png" alt="swap_date">'
                     k = 6
                 while k < 10:
                     if helper1[k] == '/':
                         ret += '<span class="hidden_element">/</span>'
                         k += 1
                     elif k+1 < 10 and helper1[k] != '*' and helper1[k+1] != '*' and helper1[k] == helper2[k+1] and helper1[k+1] == helper2[k]:
-                        ret += '<img class="transpose_icon" src="../static/images/site/transpose.png" alt="transpose">'
+                        ret += '<img class="transpose_icon" src="/static/images/site/transpose.png" alt="transpose">'
                         k += 2
                     elif helper1[k] != '*':
-                        ret += '<img class="replace_icon" src="../static/images/site/replace.png" alt="replace">'
+                        if k+1 < len(helper1) and helper1[k+1] != "/" and helper1[k+1] != "*":
+                            ret += '<img class="space_icon" src="/static/images/site/space.png" alt="space">'
+                        else:
+                            ret += '<img class="replace_icon" src="/static/images/site/replace.png" alt="replace">'
                         k += 1
                     else:
                         ret += '<span class="hidden_element">*</span>'
@@ -594,7 +659,7 @@ def get_icon_date(d1, d2, helper1, helper2):
 
 def get_icon_character(c1, c2):
     if c1 and c2 and c1 != c2:
-        return '<embed class="diff_icon" src="../static/images/site/diff.svg" type="image/svg+xml" />'
+        return '<img class="diff_icon" src="/static/images/site/diff.png" alt="diff">'
     else:
         return ''
 
@@ -637,7 +702,7 @@ def generate_icon(data):
         ['1','1000142704,174','NELSON','MITCHELL SR','1314','07/03/1949','M','B','1000142704','******','******** SR','07/03/1949','*','*','34','6','0']
     ]
     output: [
-        ['', '', '<span class="hidden_element">MITCHELL</span><img class="indel_icon" src="../static/images/site/indel.png" alt="indel"><img class="indel_icon" src="../static/images/site/indel.png" alt="indel"><img class="indel_icon" src="../static/images/site/indel.png" alt="indel">', '<embed class="diff_icon" src="../static/images/site/diff.svg" type="image/svg+xml" />', '', '']
+        ['', '', '<span class="hidden_element">MITCHELL</span><img class="indel_icon" src="/static/images/site/indel.png" alt="indel"><img class="indel_icon" src="/static/images/site/indel.png" alt="indel"><img class="indel_icon" src="/static/images/site/indel.png" alt="indel">', '<img class="diff_icon" src="/static/images/site/diff.png" alt="diff">', '', '']
     ]
     """
     ret = list()

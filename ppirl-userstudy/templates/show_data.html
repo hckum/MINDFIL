@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>PPIRL</title>
+        <link rel="shortcut icon" href="../static/images/site/favicon.ico" type="image/x-icon" />
+        <link rel="stylesheet" href="../static/css/site.css" type="text/css">
+        <link rel="stylesheet" href="../static/css/instructions.css?q=26" type="text/css">
+        <link rel="stylesheet" href="../static/css/bootstrap.min.css" type="text/css">
+        <link rel="stylesheet" href="../static/css/footer.css" type="text/css">
+        <script src="../static/javascript/jquery-3.2.1.min.js"></script>
+        <script src="../static/javascript/popper.min.js"></script>
+        <script src="../static/javascript/bootstrap.min.js"></script>
+        <script src="../static/javascript/instructions.js"></script>
+        <script src="../static/javascript/site.js"></script>
+        <script type=text/javascript>
+            $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+            $(function() {
+                $('#get_data').bind('click', function() {
+                    window.location.href = $SCRIPT_ROOT + "/pull_data";
+                });
+            });
+        </script>
+    </head>
+
+    <body>
+        <div id="wrapper">
+            {{ data | safe }}
+        {% include "footer.html" ignore missing %}
+    </body>
+</html>

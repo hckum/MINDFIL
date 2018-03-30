@@ -1,0 +1,23 @@
+{% extends "./tutorial/clickable/template_clickable_image.html" %}
+{% block content %}
+   <!-- <iframe src=""></iframe> -->
+    <iframe style="width: 85%; visibility:hidden;" allowTransparency="true" background="transparent" src="/static/images/tutorial/clickable/decision_making_2.mp4" onload="this.style.visibility='visible';"></iframe>
+        <!-- <video id="decision_making" autoplay="autoplay" class="videoInsert" controls>
+            <source src="/static/images/tutorial/clickable/decision_making_2.mp4" type="video/mp4" />
+        </video> -->
+    
+
+    </br></br>
+
+    <h4>
+    Date of birth (DoB) has a difference of almost 40 years! </br></br>
+
+    Next, let's look at the differences in the Last Name field on the next page (click the next button).
+    </h4>
+
+{% include 'tutorial/clickable/submit_button.html' %}
+  
+{% endblock %}
+
+
+

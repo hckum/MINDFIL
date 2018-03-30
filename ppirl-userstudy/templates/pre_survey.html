@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pre Study Survey</title>
+    <script src="/static/javascript/jquery-3.2.1.min.js"></script>
+     <script type="text/javascript" src="https://d3js.org/d3.v5.min.js"></script>
+</head>
+<body>
+<div id="demographics">
+    <div  style="width: 1000px; position: absolute; top: 25px;">
+    <!--<h3 style="text-align: center">Survey</h3>-->
+
+    <h4 id="demoinstr" style="margin-left: 500px;text-align: center; font-weight: bold">
+        Please fill out this short questionnaire before you proceed to the study:
+    </h4>
+     
+    </div>
+
+    <form action="pre_survey" method="post" name="pre_survey_form">
+    <br>
+    <div id="sex" style="position: absolute; left: 0px; width: 740px;  text-align: right; top: 100px;">1. Gender: </div>
+        <div id="sexes" style="position: absolute; left: 750px; top: 100px">
+            <input type="radio" id="s1" name="sex" value="Male"> Male &nbsp;&nbsp;
+            <input type="radio" id="s2" name="sex" value="Female"> Female &nbsp;&nbsp;
+            <input type="radio" id="s3" name="sex" value="Prefer not to disclose"> Prefer not to disclose
+        </div>
+    <br>
+
+    <div id="age" style="position: absolute; left:0px; width: 740px;  text-align: right; top: 150px">2. Age:
+    </div>
+        <div id="ages" style="position: absolute; left: 750px; top: 150px">
+        <input type="number" name="age" min="18" max="100">
+        </div>
+    <br>
+
+    <svg  height="10px" width="750px" style="position: absolute; left:450px; top: 185px">
+        <line x1="0" y1="5" x2="750" y2="5" style="stroke:grey;stroke-width:1"></line>
+    </svg>
+
+    <!-- <div id="occupation" style="position: absolute; left:0px; width: 740px;  text-align: right; top: 200px">3. Occupation:
+    </div>
+        <div id="occupations" style="position: absolute; left: 750px; top: 200px">
+        <input type="radio" id="o1" name="occupation" value="Student"> Student &nbsp;&nbsp;
+        <input type="radio" id="o2" name="occupation" value="Research Staff"> Research Staff &nbsp;&nbsp;
+        <input type="radio" id="o3" name="occupation" value="Faculty"> Faculty &nbsp;&nbsp;
+        <input type="radio" id="o4" name="occupation" value="Other"> Other &nbsp;
+        <input type="text" id="o5" name="occupation">
+        </div>
+    <br> -->
+
+
+    <div id="div_student" name="div_stud">
+        <div id="current_degree" style="position: absolute; left:0px; width: 740px;  text-align: right;  top: 220px">3.1. Current Degree:
+        </div>
+        <div id="degrees" style="position: absolute; left: 750px; top: 220px">
+            <!-- <input type="radio" id="d1" name="current_degree" value="High School"> High School &nbsp;&nbsp; -->
+            <input type="radio" id="d2a" name="current_degree" value="Freshman"> Freshman &nbsp;&nbsp;
+            <input type="radio" id="d2b" name="current_degree" value="Sophomore"> Sophomore &nbsp;&nbsp;
+            <input type="radio" id="d2c" name="current_degree" value="Junior"> Junior &nbsp;&nbsp;
+            <input type="radio" id="d2d" name="current_degree" value="Senior"> Senior &nbsp;&nbsp;
+            <input type="radio" id="d3" name="current_degree" value="Masters"> Masters &nbsp;&nbsp;
+            <input type="radio" id="d4" name="current_degree" value="PhD"> PhD &nbsp;&nbsp;
+            <input type="radio" id="d5" name="current_degree" value="Other"> Other &nbsp;
+            <input type="text" id="d6" name="current_degree" >
+        </div>
+
+        <div id="department"  style="position: absolute; left: 0px;width: 740px;  text-align: right; top: 280px">3.2. Department:
+        </div>
+
+        <div>
+            <input type="text" id="dpt" name="dpt" style="position: absolute; left: 750px; top: 280px">
+        </div>
+
+
+    </div>
+    <br>
+
+    <div id="div_highest_degree" style="position: absolute; left: 0px;width: 740px;  text-align: right;  top: 330px">4. Highest Degree obtained:
+    </div>
+        <div id="degrees_2" style="position: absolute; left: 750px; top: 330px">
+        <input type="radio" id="h1" name="highest_degree" value="High School"> High School &nbsp;&nbsp;
+        <input type="radio" id="h2" name="highest_degree" value="Bachelors"> Bachelors &nbsp;&nbsp;
+        <input type="radio" id="h3" name="highest_degree" value="Masters"> Masters &nbsp;&nbsp;
+        <input type="radio" id="h4" name="highest_degree" value="PhD"> PhD &nbsp;&nbsp;
+        <input type="radio" id="h5" name="highest_degree" value="Other"> Other &nbsp;
+        <input type="text" id="h6" name="highest_degree">
+        </div>
+    <br>
+
+    <svg  height="10px" width="750px" style="position: absolute; left:450px; top: 385px">
+        <line x1="0" y1="5" x2="750" y2="5" style="stroke:grey;stroke-width:1"></line>
+    </svg>
+
+    <div id="div_us_age" style="position: absolute; left: 0px;width: 740px;  text-align: right;  top: 400px">5. Length of stay in the US:
+    </div>
+        <div style="position: absolute; left: 750px; top: 400px">
+        <input type="number" name="us_age" id="us_years" min="0" max="100"> Years &nbsp;
+        <input type="number" name="us_age" id="us_months" min="0" max="12"> Months
+        </div>
+    <br>
+
+    <div id="div_country"  style="position: absolute; left: 0px;width: 740px;  text-align: right;  top: 450px">
+        6. Country you lived the majority of your life:
+    </div>
+    <div>
+        <input type="text" id="country_txt" name="country" style="position: absolute; left: 750px; top: 450px">
+    </div>
+    <br>
+
+    <div id="div_english" style="position: absolute; left: 0px;width: 740px;  text-align: right;  top: 500px">
+        7. Is English your first language?
+    </div>
+    <div style="position: absolute; left: 750px; top: 500px">
+        <input type="radio" id="e1" name="english" value="Yes"> Yes &nbsp;&nbsp;
+        <input type="radio" id="e2" name="english" value="No"> No
+    </div>
+    <br>
+
+    <div id="div_color" style="position: absolute; left: 0px;width: 740px;  text-align: right;  top: 550px">
+        8. Do you have any known color blindness?
+    </div>
+    <div style="position: absolute; left: 750px; top: 550px">
+        <input type="radio" id="c1" name="color" value="Yes"> Yes &nbsp;&nbsp;
+        <input type="radio" id="c2" name="color" value="No"> No
+    </div>
+    <br>
+
+    <svg  height="10px" width="750px" style="position: absolute; left:450px; top: 585px">
+        <line x1="0" y1="5" x2="750" y2="5" style="stroke:grey;stroke-width:1"></line>
+    </svg>
+
+    <div id="div_data" style="position: absolute; left: 400px;width: 340px;  text-align: right;  top: 600px">
+        9. Rate your experience working with data or doing data analysis, including numerical inspection or descriptive statistics on a scale of 1 to 10:
+        <!--<br>(1 being very inexperienced and 10 being very experienced)-->
+    </div>
+    <div style="position: absolute; left: 750px; top: 610px">
+        <select name="data_ana">
+            <option value="0">Please select</option>
+            <option value="1">1 - No experience</option>
+            <option value="2">2 - Little Experience</option>
+            <option value="3">3 - Some Experience</option>
+            <option value="4">4 - Lots of experience</option>
+        </select>
+    </div>
+    <div  style="position: absolute; left: 0px;width: 740px;  text-align: right;  top: 685px">
+        Briefly explain:
+    </div>
+        <textarea name="data_ana_text" rows="4" cols="50" style="position: absolute; left: 750px;  top: 685px"></textarea>
+    <br>
+
+
+    <div id="div_submit">
+        <input type="submit" id="submitComments" name="button_submit" value="Submit" style="position: absolute; left: 725px;  top: 800px">
+    </div>
+
+    </form>
+
+</div>
+
+
+
+<script>
+    
+   $("#h6").css("visibility","hidden");
+    $("#d6").css("visibility","hidden");
+
+    $("input[name=current_degree]").click(function(){
+        // console.log();
+        if($(this).attr('id') === "d5"){
+            $("#d6").css("visibility", "visible")
+        } else {
+            $("#d6").css("visibility","hidden");
+        }
+    })
+
+    $("input[name=highest_degree]").click(function(){
+        // console.log();
+        if($(this).attr('id') === "h5"){
+            $("#h6").css("visibility", "visible")
+        } else {
+            $("#h6").css("visibility","hidden");
+        }
+    })
+
+//     function disable_stud(status) {
+//         if(status){
+           
+//             d3.select("#current_degree").style("color","#b3b3b3");
+//             d3.select("#degrees").style("color","#b3b3b3");
+//             d3.select("#department").style("color","#b3b3b3");
+//             for(i=1;i<7;i++) {
+//                 d3.select('#d'+i).attr("disabled","true").property("checked","false");
+//             }
+//             d3.select("#dpt").attr("disabled",true).attr("value","").property("value","");
+            
+//         } else {
+//             d3.select("#current_degree").style("color","black");
+//             d3.select("#degrees").style("color","black");
+//             d3.select("#department").style("color","black");
+//             for(i=1;i<7;i++) {
+//                 d3.select('#d'+i).attr("disabled",null);
+//             }
+//             d3.select("#dpt").attr("disabled",null);
+//         }
+//     }
+//     disable_stud(true);
+// //      If student
+//     d3.selectAll('input')
+//         .filter(function(d) { return this.name === 'occupation' ? this : null; })
+//         .on('change', function() {
+//             disable_stud(true);
+//             if(d3.select("#o4").property("checked")) {
+//                 d3.select("#o5")
+//                     .style("visibility","visible");
+//                 d3.select("#d6")
+//                     .style("visibility","hidden");
+//             } else {
+               
+//                 d3.select("#o5")
+//                     .style("visibility","hidden");
+//                 if(d3.select("#o1").property("checked")) {
+//                     disable_stud(false);
+//                 }
+//             }
+//         })
+
+
+
+</script>
+</body>
+</html>

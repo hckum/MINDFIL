@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>PPIRL</title>
+        <link rel="shortcut icon" href="../static/images/site/favicon.ico" type="image/x-icon" />
+        <link rel="stylesheet" href="../static/css/site.css" type="text/css">
+        <link rel="stylesheet" href="../static/css/instructions.css?q=26" type="text/css">
+        <link rel="stylesheet" href="../static/css/bootstrap.min.css" type="text/css">
+        <link rel="stylesheet" href="../static/css/footer.css" type="text/css">
+        <script src="../static/javascript/jquery-3.2.1.min.js"></script>
+        <script src="../static/javascript/popper.min.js"></script>
+        <script src="../static/javascript/bootstrap.min.js"></script>
+        <script src="../static/javascript/instructions.js"></script>
+        <script src="../static/javascript/site.js"></script>
+        <script type=text/javascript>
+            $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+            $(function() {
+                $('#get_data').bind('click', function() {
+                    window.location.href = $SCRIPT_ROOT + "/pull_data";
+                });
+            });
+        </script>
+    </head>
+
+    <body>
+        <div id="wrapper">
+            <div id="title">
+                <h3>Sign up</h3>
+            </div>
+           <!--  <div id="page-number">
+                （ page: 17/17 ）
+            </div> -->
+            <div id="content">
+                <div>
+I hope you enjoyed doing the tutorial.<br/>
+<br/>
+Having good data is a requirement for generating good information from it to support high quality evidence based decisions. High quality record linkage to support good evidence based research requires hitting the sweet spot in balancing patient privacy and sharing just the right amount of information needed for good record linkage decisions.<br/>
+
+<br>We hope you got a glimpse of what it takes to hit the sweet spot.<br/>
+<br><strong>Please help us find that balance by signing up to participate in an online focus group to discuss</strong>
+                    <ul>
+<li> what you liked about the PPIRL framework
+<li> what you are concerned about the PPIRL framework
+<li> Other information you would like to know about the PPIRL framework
+                    </ul>
+We estimate a 2 hour session that will involve discussions of these questions and end with a voting of the various themes that emerged from the discussion.
+<br>
+Participants will be compensated $20 for joining the online session and will be given the opportunity to enter a raffle for additional $100.
+<br><br>
+<a href={{"https://docs.google.com/forms/d/e/1FAIpQLSeZgEYkUeucXCcvpJdyXp7SxG3OzajQLPdMK88lVAReQD0iPg/viewform?&entry.605336808=" + session_id }} target="_blank">
+You may sign up on the google form. CLICK HERE </a>
+                    <br><br>
+<a href="https://pinformatics.org/ppirl/ustudy/aer_ngt_info.php" target="_blank"> For more details, you can read more about the study by CLICKING HERE
+                    </a><br>
+
+                </div>
+                <!--div>
+                    <br><br><button id="get_data">Score</button>
+                </div-->
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="container">
+                <span class="text-muted">Copyright © 2017 • Population Informatics Research Group • Texas A&M University</span>
+            </div>
+        </footer>
+    </body>
+</html>
