@@ -393,6 +393,80 @@
 
     {% endif%}        
 
+    <div>
+         <br><br>
+        <div style="width: 800px;">
+            <!-- <i> Assume that researchers were given permission to use personal health information to link from multiple hospitals using personally identifing information (e.g., names, dob, ssn etc) using the kinds of software you just used. You just found out that they also had your information. Answer the following questions.</i> <br><br> -->
+            {% if umode == '4' %}
+            16. 
+            {% elif umode == '3' %}
+            14. 
+            {% elif umode == '2' %}
+            11. 
+            {% else %}
+            9.
+            {% endif %}
+            Assume that researchers were given permission to link personal health information from multiple hospitals. They will be using the kinds of software you just used to access your personally identifing information (PII e.g., names, dob, ssn etc). You just got an email asking for your consent to use your data in this project. If they asked you for permission, how likely are you to give permission knowing how they would access your PII (e.g., names, dob, ssn etc) using this software?<br><br>
+            <select name="comfortable_info" >
+                    <option value="0">Please select</option>
+                    <option value="1">1 - I will not give permission</option>
+                    <option value="2">2 - I am not likely to give permission</option>
+                    <option value="3">3 - I cannot decide now</option>
+                    <option value="4">4 - I am likely to give permission</option>
+                    <option value="5">5 - I will give permission</option>
+            </select>
+        </div>
+
+        <div style="width: 800px;">
+            <br><br>
+            <i>Now, you are talking to a group of friends about this research project, who also got an email about giving consent. They are asking you to explain the software so they can decide if they want to give consent or not. Answer the following questions.</i>
+            <br><br>
+            {% if umode == '4' %}
+            17. 
+            {% elif umode == '3' %}
+            15. 
+            {% elif umode == '2' %}
+            12. 
+            {% else %}
+            10.
+            {% endif %}
+            What are things you liked about the software that you would tell them?<br><br>
+            <textarea name="software_like" rows="4" cols="90"></textarea>
+        </div>
+
+        <div style="width: 800px;">
+            <br><br>
+            {% if umode == '4' %}
+            18. 
+            {% elif umode == '3' %}
+            16. 
+            {% elif umode == '2' %}
+            13. 
+            {% else %}
+            11.
+            {% endif %}
+             What are things you are concerned about the software that you would tell them?<br><br>
+            <textarea name="software_concerned" rows="4" cols="90"></textarea>
+        </div>
+
+        <div style="width: 800px;">
+            <br><br>
+            {% if umode == '4' %}
+            19. 
+            {% elif umode == '3' %}
+            17. 
+            {% elif umode == '2' %}
+            14. 
+            {% else %}
+            12.
+            {% endif %}
+            You are asked to draft an email to the researchers for any questions you have before you give permission. What more would you like to know?<br><br>
+            <textarea name="other_info_know" rows="4" cols="90"></textarea>
+        </div>
+
+    </div>
+
+
     <br><br>
 
     <div id="div_submit">
