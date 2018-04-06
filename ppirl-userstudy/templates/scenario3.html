@@ -1,0 +1,69 @@
+<div>
+        <hr>
+        <strong>SCENARIO 3</strong>
+         <br><br>
+
+         <i>This time, we would like to know what <b>criteria</b> you think are important when researchers are using your PII (e.g., names, dob, ssn etc) for research to link data accurately.</i>
+
+         <br><br>
+        <div style="width: 800px;">
+         
+            <li>How important is it to have <b>approval from an institutional review board (IRB)</b> in a database only study where the researchers have no contact with you (the subjects of the study)? An IRB is an independent body that reviews and approves research studies to ensure safety and privacy protection in research studies.<br><br>
+            <!--  <iframe style="width:130%; visibility:hidden;" allowTransparency="true" background="transparent" src="/static/images/module_intros/moving_budget2.mp4" onload="this.style.visibility='visible';"></iframe><br><br> -->
+            <select name="sc3q1" >
+                    <option value="0">Please select</option>
+                    <option value="1">1 - Not at all</option>
+                    <option value="2">2 - Slightly important</option>
+                    <option value="3">3 - Moderately important</option>
+                    <option value="4">4 - Very important</option>
+                    <option value="5">5 - Extremely important</option>
+            </select></li>
+        </div>
+
+        <br><br>
+        <div style="width: 800px;">
+         
+            <li>How important is it for the researcher to <b>use the data on a secure computing environment to protect against unauthorized access</b>?<br><br>
+            <!--  <iframe style="width:130%; visibility:hidden;" allowTransparency="true" background="transparent" src="/static/images/module_intros/moving_budget2.mp4" onload="this.style.visibility='visible';"></iframe><br><br> -->
+            <select name="sc3q2" >
+                    <option value="0">Please select</option>
+                    <option value="1">1 - Not at all</option>
+                    <option value="2">2 - Slightly important</option>
+                    <option value="3">3 - Moderately important</option>
+                    <option value="4">4 - Very important</option>
+                    <option value="5">5 - Extremely important</option>
+            </select></li>
+        </div>
+
+        <br><br>
+        <div style="width: 800px;">
+         
+            <li>How important is it to <b>track exactly what data each researcher saw and used for accountability and transparency</b>? For example, in a software like the one you used that tracks what cells were opened by who, and how much total budget was used.<br><br>
+            <!--  <iframe style="width:130%; visibility:hidden;" allowTransparency="true" background="transparent" src="/static/images/module_intros/moving_budget2.mp4" onload="this.style.visibility='visible';"></iframe><br><br> -->
+            <select name="sc3q3" >
+                    <option value="0">Please select</option>
+                    <option value="1">1 - Not at all</option>
+                    <option value="2">2 - Slightly important</option>
+                    <option value="3">3 - Moderately important</option>
+                    <option value="4">4 - Very important</option>
+                    <option value="5">5 - Extremely important</option>
+            </select></li>
+        </div>
+
+        <br><br>
+        <div style="width: 800px;">
+         
+            <li>How important is to <b>limit researchers from seeing all PII data during record linkage.<b> For example, in a software like the one you used, the ability to set an appropriate limit, or block certain cells from being fully opened? 
+                {% if umode in ['4'] and ubudget=='minimum': %}
+                You should note that you had a very tight limit for record linkage. Assume that the exact setting of the budget would be determined as appropriate and needed to do good linkage decisions.
+                {% endif %}<br><br>
+            <!--  <iframe style="width:130%; visibility:hidden;" allowTransparency="true" background="transparent" src="/static/images/module_intros/moving_budget2.mp4" onload="this.style.visibility='visible';"></iframe><br><br> -->
+            <select name="sc3q4" >
+                    <option value="0">Please select</option>
+                    <option value="1">1 - Not at all</option>
+                    <option value="2">2 - Slightly important</option>
+                    <option value="3">3 - Moderately important</option>
+                    <option value="4">4 - Very important</option>
+                    <option value="5">5 - Extremely important</option>
+            </select></li>
+        </div>

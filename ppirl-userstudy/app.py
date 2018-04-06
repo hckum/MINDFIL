@@ -270,7 +270,24 @@ def post_survey():
         print(r.get(user_data_key))
         return redirect('/next')
     if request.method == 'GET':
-        return render_template('post_survey.html', uid=str(session['user_id']), umode=session[session['user_id'] + '_mode'])
+        return render_template('post_survey.html', uid=str(session['user_id']), umode=session[session['user_id'] + '_mode'], ubudget=r.get(str(session['user_id'])+'_ustudy_budget'))
+
+@app.route('/post_survey_scenario3', methods=['GET', 'POST'])
+@state_machine('post_survey_scenario3')
+def post_survey_scenario3():
+    if request.method == 'POST':
+        user_data_key = str(session['user_id']) + '_user_data'
+        formatted_data = "uid:" + session['user_id'] + "," + "type: post_survey_data, value: '"
+        f = request.form
+        for key in f:
+           formatted_data += key + ":" + f[key] + "|" 
+        formatted_data += "';"    
+        r.append(user_data_key, formatted_data)
+        print(r.get(user_data_key))
+        return redirect('/next')
+    if request.method == 'GET':
+        return render_template('post_survey_scenario3.html', uid=str(session['user_id']), umode=session[session['user_id'] + '_mode'], ubudget=r.get(str(session['user_id'])+'_ustudy_budget'))
+
 
 @app.route('/save_data', methods=['GET', 'POST'])
 def save_data():
@@ -303,6 +320,11 @@ def open_cell():
         full_data = DATASET_TUTORIAL
         if r.get(session['user_id']+'_ustudy_mode') == "4":
             kapr_limit = 20
+    elif get_url_for_index(session['state']) == 'tutorial.show_tutorial_clickable_practice_post':
+        working_data = DATA_CLICKABLE_PRACTICE
+        full_data = DATASET_TUTORIAL
+        # if r.get(session['user_id']+'_ustudy_mode') == "4":
+        kapr_limit = 20
         # float(r.get(session['user_id']+'tutorial_practice_kapr_limit'))
     elif get_url_for_index(session['state']) == 'main_section.show_record_linkage_task':
         working_data = get_main_section_data(session['user_id'], 1)
@@ -344,6 +366,11 @@ def open_big_cell():
         if session["user_id"] + "_mode" == "4":
           kapr_limit = 20
         # float(r.get(session['user_id']+'tutorial_practice_kapr_limit'))
+    elif get_url_for_index(session['state']) == 'tutorial.show_tutorial_clickable_practice_post':
+        working_data = DATA_CLICKABLE_PRACTICE
+        full_data = DATASET_TUTORIAL
+        # if r.get(session['user_id']+'_ustudy_mode') == "4":
+        kapr_limit = 20
     elif get_url_for_index(session['state']) == 'main_section.show_record_linkage_task':
         working_data = get_main_section_data(session['user_id'], 1)
         full_data = DATASET

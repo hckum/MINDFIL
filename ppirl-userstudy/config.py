@@ -102,6 +102,10 @@ SEQUENCE_MODE2 =  [
     'main_section.show_record_linkage_task',    #31
     'main_section.show_main_section_guide',    #32      
     'post_survey',
+    'tutorial.show_tutorial_clickable_budgetmeter',    #25
+    'tutorial.show_tutorial_clickable_budgetlimit',
+    'tutorial.show_tutorial_clickable_practice_post',
+    'post_survey_scenario3',
     'show_thankyou'    #34
 ]
 

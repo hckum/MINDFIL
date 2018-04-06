@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Post Study Survey</title>
+</head>
+<body>
+<div id="survey">
+    <!--<h1>Post-Study Survey</h1>-->
+
+    <div style="width: 700px">
+        <h4>Please answer these few questions about the study</h4>
+        <hr>
+    </div>
+
+    <br>
+
+    <div style="font-size: 100%">
+
+    <form action="post_survey_scenario3" method="post" name="post_survey_form">
+
+    <ol>
+
+    {% include 'scenario3.html' %}
+
+    </div>
+
+    </ol>
+
+    <br><br>
+
+    <div id="div_submit">
+        <input type="submit" id="submitComments" name="button_submit" value="Submit" style="margin-left: 300px;" >
+    </div>
+
+    </form>
+
+</div>
+</div>
+</body>
+</html>

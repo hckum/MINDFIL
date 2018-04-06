@@ -2,7 +2,11 @@
 {% block content %}
 
 <div class="module_intros">
+    {% if session[session['user_id'] + '_mode']=='4': %}
     <img src="/static/images/tutorial/clickable/slides/9.jpg"/>
+    {% else: %}
+    <img src="/static/images/tutorial/clickable/slides/budget_limit_post.jpg"/>
+    {% endif %}
 </div>
 {% include 'tutorial/clickable/submit_button.html' %}
         

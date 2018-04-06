@@ -404,6 +404,48 @@ def show_tutorial_clickable_practice():
         ustudy_mode=r.get(str(session['user_id'])+'_ustudy_mode')
         )
 
+@tutorial.route('/tutorial/practice_post')
+@state_machine('show_tutorial_clickable_practice_post')
+def show_tutorial_clickable_practice_post():
+    pairs_formatted = DATA_CLICKABLE_PRACTICE.get_data_display('masked')
+    data = zip(pairs_formatted[0::2], pairs_formatted[1::2])
+    icons = DATA_CLICKABLE_PRACTICE.get_icons()
+    ids_list = DATA_CLICKABLE_PRACTICE.get_ids()
+    ids = zip(ids_list[0::2], ids_list[1::2])
+    print data
+
+    # KAPR - K-Anonymity privacy risk
+    KAPR_key = session['user_id'] + '_KAPR'
+    r.set(KAPR_key, 0)
+
+    # set the user-display-status as masked for all cell
+    attribute_size = 6
+    for id1 in ids_list:
+        for i in range(attribute_size):
+            key = session['user_id'] + '-' + id1[i]
+            r.set(key, 'M')
+
+    delta = list()
+    for i in range(DATA_CLICKABLE_PRACTICE.size()):
+        data_pair = DATA_CLICKABLE_PRACTICE.get_data_pair_by_index(i)
+        delta += dm.KAPR_delta(DATASET_TUTORIAL, data_pair, ['M', 'M', 'M', 'M', 'M', 'M'], 2*DATA_CLICKABLE_PRACTICE.size())
+
+    kapr_limit = 20
+
+
+
+    return render_template('tutorial/clickable_practice_post.html', 
+        data=data, 
+        icons=icons, 
+        ids=ids, 
+        title='Demo: See how the meter and budget feel', 
+        thisurl='/tutorial/practice_post', 
+        page_number="1", 
+        delta=delta, 
+        kapr=0,
+        kapr_limit = kapr_limit, 
+        uid=str(session['user_id']),
+        pair_num_base=6*0+1,
+        ustudy_mode='4'
+        )
      
-   #      kapr = KAPR,
-   # 

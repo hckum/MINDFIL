@@ -19,21 +19,23 @@
 
     <form action="post_survey" method="post" name="post_survey_form">
 
+    <ol>
+
     <div id="div_difficulty" style="width: 700px;">
-        1. Please explain any issues that made it <strong>harder</strong> to make linkage decisions:<br><br>
-        <textarea name="text_area_difficulty" rows="4" cols="90"></textarea>
+        <li> Please explain any issues that made it <strong>harder</strong> to make linkage decisions:<br><br>
+        <textarea name="text_area_difficulty" rows="4" cols="90"></textarea></li>
     </div>
 
     <br><br>
 
     <div id="div_easiness" style="width: 700px;">
-        2. Please explain any features that made it <strong>easier</strong> to make linkage decisions:<br><br>
-        <textarea name="text_area_easiness" rows="4" cols="90"></textarea>
+        <li>Please explain any features that made it <strong>easier</strong> to make linkage decisions:<br><br>
+        <textarea name="text_area_easiness" rows="4" cols="90"></textarea></li>
     </div>
 
     <br><br>
     <div id="div_column_difficulty" style="display: inline-block; width: 700px;">
-        3. Please rate how difficult it was to <strong>make decisions</strong> when there was a difference in each column.<br><br>
+        <li> Please rate how difficult it was to <strong>make decisions</strong> when there was a difference in each column.<br><br>
         <ol type="a">
             <li>First Name:
                 <select name="fname_diff" style="position: absolute; left: 200px;">
@@ -109,11 +111,12 @@
                 </select>
             </li>
         </ol>
+    </li>
     </div>
 
     <br><br>
     <div id="div_column_sotting" style="display: inline-block; width: 700px;">
-        4. Please rate how difficult it was to <strong>spot (detect) a difference in each column.</strong><br><br>
+        <li>Please rate how difficult it was to <strong>spot (detect) a difference in each column.</strong><br><br>
         <ol type="a">
             <li>First Name:
                 <select name="fname_spot" style="position: absolute; left: 200px;">
@@ -189,11 +192,12 @@
                 </select>
             </li><br>
         </ol>
+    </li>
     </div>
 
     <br><br>
     <div id="div_type_diff" style="display: inline-block; width: 700px;">
-        5. Please rate how difficult it was to <strong>spot (detect) how pairs were different for various types of errors.</strong> <br><br>
+        <li>Please rate how difficult it was to <strong>spot (detect) how pairs were different for various types of errors.</strong> <br><br>
         <ol type="a">
             <li>Missing:
                 <select name="spot_missing" style="position: absolute; left: 200px;">
@@ -281,12 +285,13 @@
                 </select>
             </li><br>
         </ol>
+    </li>
     </div>
 
 
     <br><br>
     <div id="div_freq" style="width: 700px;">
-        6. Did you take into account the rarity/commonness of the first name and last name when you made linkage decisions?<br><br>
+        <li>Did you take into account the rarity/commonness of the first name and last name when you made linkage decisions?<br><br>
         <!--&nbsp;&nbsp;&nbsp;&nbsp;-->
         &nbsp;&nbsp;&nbsp;
         <input type="radio" id="e1" name="frequency" value="Yes"> Yes &nbsp;&nbsp;
@@ -295,37 +300,40 @@
         &nbsp;&nbsp;&nbsp; If yes, why? If not, why not?:
         <textarea name="freq_dec" rows="4" cols="90"></textarea>
         <br><br>
+    </li>
     </div>
 
 
     <div name="div_int" style="width: 700px;">
-        7. Was there anything you did not understand about the task or interface? Please explain.<br><br>
-        <textarea name="inter_under" rows="4" cols="90"></textarea>
+        <li>Was there anything you did not understand about the task or interface? Please explain.<br><br>
+        <textarea name="inter_under" rows="4" cols="90"></textarea></li>
     </div>
 
     <br><br>
     <div id="div_tips" style="width: 800px;">
-        8. Please share any comments or feedback about the user study or ways to improve the interface to support decision making.<br><br>
-        <textarea name="tips" rows="4" cols="90"></textarea>
+        <li>Please share any comments or feedback about the user study or ways to improve the interface to support decision making.<br><br>
+        <textarea name="tips" rows="4" cols="90"></textarea></li>
     </div>
 
     {% if umode in ['2', '3', '4'] %}
     <div>
             <br><br>
         <div style="width: 800px;">
-            9. How did you decide which cells to click/open?<br><br>
-            <textarea name="which_cells_open" rows="4" cols="90"></textarea>
+            <li>
+                How did you decide which cells to click/open?<br><br> 
+                <textarea name="which_cells_open" rows="4" cols="90"></textarea>
+            </li>
         </div>
         
             <br><br>
         <div style="width: 800px;">
-            10. How attentive were you in opening up only the necessary cells? <br><br>
+            <li>How attentive were you in opening up only the necessary cells? <br><br>
             <select name="attention_necessary" style="position: absolute; ">
                     <option value="0">Please select</option>
                     <option value="1">1 - I was not paying attention </option>
                     <option value="2">2 - I tried to pay attention some what</option>
                     <option value="3">3 - I was paying close attention</option>
-            </select>
+            </select></li>
         </div>
 
     </div>
@@ -337,32 +345,26 @@
     <div>
        <br><br><br>
         <div style="width: 800px;">
-            11. Did the meter influence how much you opened up cells? <br><br>
+            <li>Did the meter influence how much you opened up cells? <br><br>
             <select name="meter_influence" style="position: absolute; ">
                     <option value="0">Please select</option>
                     <option value="1">1 - The meter did not influence me</option>
                     <option value="2">2 - The meter influenced me somewhat</option>
                     <option value="3">3 - The meter influence me a lot</option>
-            </select>
+            </select></li>
         </div>
 
         <br><br><br>
         <div style="width: 800px;">
-            12. Was the meter easy to understand and intuitive?<br><br>
-            <textarea name="meter_understandablity" rows="4" cols="90"></textarea>
-           <!--  <select id="meter_understandablity" style="position: absolute; left: 200px;">
-                    <option value="0">Please select</option>
-                    <option value="1">1 - Not really</option>
-                    <option value="2">2 - A little</option>
-                    <option value="3">3 - Somewhat</option>
-                    <option value="4">4 - Very much</option>
-            </select> -->
+            <li>Was the meter easy to understand and intuitive?<br><br>
+            <textarea name="meter_understandablity" rows="4" cols="90"></textarea></li>
+         
         </div>
 
         <br><br>
         <div style="width: 800px;">
-            13. Without the meter how much do you think you would have opened up?<br><br>
-            <textarea name="meter_openingup" rows="4" cols="90"></textarea>
+            <li>Without the meter how much do you think you would have opened up?<br><br>
+            <textarea name="meter_openingup" rows="4" cols="90"></textarea></li>
         </div>
 
     </div>
@@ -373,20 +375,24 @@
     <div>
             <br><br>
         <div style="width: 800px;">
-            14. Was the budget (red line) with the meter enough to comfortably make decisions? <br>
-            <img src="/static/images/module_intros/budget_limit.png" style="width: 750px;"></img><br>
-            <textarea name="limit_comfortable" rows="4" cols="90"></textarea>
+            <li>Was the budget (red line) with the meter enough to comfortably make decisions? <br>
+                {% if ubudget=='minimum': %}
+                    <img src="/static/images/module_intros/tight_budget.png" style="width: 750px;"></img><br>
+                {% else: %}
+                    <img src="/static/images/module_intros/budget_limit.png" style="width: 750px;"></img><br>
+                {% endif %}
+            <textarea name="limit_comfortable" rows="4" cols="90"></textarea></li>
         </div>
         
             <br><br>
         <div style="width: 800px;">
-            15. Without the limit (red line), how much <strong>more</strong> would you have opened up than you did?<br><br>
+            <li>Without the limit (red line), how much <strong>more</strong> would you have opened up than you did?<br><br>
             <select name="limit_influence" >
                     <option value="0">Please select</option>
                     <option value="1">1 - Significantly more</option>
                     <option value="2">2 - A little more</option>
                     <option value="3">3 - I would have used about the same budget</option>
-            </select>
+            </select></li>
         </div>
 
     </div>
@@ -394,78 +400,85 @@
     {% endif%}        
 
     <div>
-         <br><br>
+        <br><br>
+        <hr>
+        <strong>SCENARIO 1</strong>
+         <br><br><br>
         <div style="width: 800px;">
-            <!-- <i> Assume that researchers were given permission to use personal health information to link from multiple hospitals using personally identifing information (e.g., names, dob, ssn etc) using the kinds of software you just used. You just found out that they also had your information. Answer the following questions.</i> <br><br> -->
-            {% if umode == '4' %}
-            16. 
-            {% elif umode == '3' %}
-            14. 
-            {% elif umode == '2' %}
-            11. 
-            {% else %}
-            9.
-            {% endif %}
-            Assume that researchers were given permission to link personal health information from multiple hospitals. They will be using the kinds of software you just used to access your personally identifing information (PII e.g., names, dob, ssn etc). You just got an email asking for your consent to use your data in this project. If they asked you for permission, how likely are you to give permission knowing how they would access your PII (e.g., names, dob, ssn etc) using this software?<br><br>
+           
+            <li>
+            Assume that researchers were given permission to link personal health information from multiple hospitals. They will be using the kinds of software you just used to access your personally identifying information (PII e.g., names, dob, ssn etc). You just got an email asking for your consent to use your data in this project. If they asked you for permission, how likely are you to give permission knowing how they would access your PII (e.g., names, dob, ssn etc) using this software?<br><br>
             <select name="comfortable_info" >
                     <option value="0">Please select</option>
-                    <option value="1">1 - I will not give permission</option>
+                    <option value="1">1 - I would not give permission</option>
                     <option value="2">2 - I am not likely to give permission</option>
                     <option value="3">3 - I cannot decide now</option>
                     <option value="4">4 - I am likely to give permission</option>
-                    <option value="5">5 - I will give permission</option>
-            </select>
+                    <option value="5">5 - I would give permission</option>
+            </select></li>
         </div>
 
         <div style="width: 800px;">
             <br><br>
+           
             <i>Now, you are talking to a group of friends about this research project, who also got an email about giving consent. They are asking you to explain the software so they can decide if they want to give consent or not. Answer the following questions.</i>
             <br><br>
-            {% if umode == '4' %}
-            17. 
-            {% elif umode == '3' %}
-            15. 
-            {% elif umode == '2' %}
-            12. 
-            {% else %}
-            10.
-            {% endif %}
-            What are things you liked about the software that you would tell them?<br><br>
-            <textarea name="software_like" rows="4" cols="90"></textarea>
+        
+             <li>What are things you liked about the software that you would tell them?<br><br>
+            <textarea name="software_like" rows="4" cols="90"></textarea></li>
         </div>
 
         <div style="width: 800px;">
             <br><br>
-            {% if umode == '4' %}
-            18. 
-            {% elif umode == '3' %}
-            16. 
-            {% elif umode == '2' %}
-            13. 
-            {% else %}
-            11.
-            {% endif %}
+            <li>
+         
              What are things you are concerned about the software that you would tell them?<br><br>
             <textarea name="software_concerned" rows="4" cols="90"></textarea>
+        </li>
         </div>
 
         <div style="width: 800px;">
             <br><br>
-            {% if umode == '4' %}
-            19. 
-            {% elif umode == '3' %}
-            17. 
-            {% elif umode == '2' %}
-            14. 
-            {% else %}
-            12.
-            {% endif %}
-            You are asked to draft an email to the researchers for any questions you have before you give permission. What more would you like to know?<br><br>
-            <textarea name="other_info_know" rows="4" cols="90"></textarea>
+         
+             <li>You are asked to draft an email to the researchers for any questions you have before you give permission. What more would you like to know?<br><br>
+            <textarea name="other_info_know" rows="4" cols="90"></textarea></li>
         </div>
 
     </div>
 
+
+     <div>
+        <br><br>
+        <hr>
+        <strong>SCENARIO 2</strong>
+         <br><br><br>
+        <div style="width: 800px;">
+         
+            <li>How concerned are you about researchers <b>using your PII (e.g., names, dob, ssn etc) for scientific studies</b> without your consent?<br><br>
+            <select name="comfortable_pii" >
+                    <option value="0">Please select</option>
+                    <option value="1">1 - Not at all</option>
+                    <option value="2">2 - Slightly concerned</option>
+                    <option value="3">3 - Moderately concerned</option>
+                    <option value="4">4 - Very concerned</option>
+                    <option value="5">5 - Extremely concerned</option>
+            </select></li>
+        </div>
+
+    </div>
+
+
+    {% if umode in ['4'] and ubudget=='minimum': %}
+         <br><br>
+        {% include 'scenario3.html' %}
+
+    {% endif %}
+
+
+
+    </div>
+
+    </ol>
 
     <br><br>
 
