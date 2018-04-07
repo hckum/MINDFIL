@@ -203,6 +203,15 @@
             <div id="feedback" style="font-size: 20px;">
             </div>
 
+            {% if session[session['user_id'] + '_mode'] == "1": %}
+            <div class="submit_div">
+
+                <button id="button_next" class="submit_button">Next</button>
+
+            </div>
+
+            {% else %}
+
             <div class="submit_div">
                 {% if title != 'PPIRL Framework' %}
                     <button id="submit_btn" class="submit_button">Submit</button>
@@ -210,6 +219,8 @@
                 <button id="button_next" class="submit_button" {% if title != 'PPIRL Framework' %} style="display: none;"{% endif %}>Next</button>
                 <!-- <button id="button_next" class="submit_button" >Next</button> -->
             </div>
+
+            {% endif %}
 
             </div>
 

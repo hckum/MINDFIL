@@ -61,12 +61,30 @@ SEQUENCE_MODE1 =  [
     'tutorial.show_tutorial_rl_dup',    #7
     'tutorial.show_tutorial_rl_missing',    #8
     'tutorial.show_tutorial_rl_freq',    #9
-    'tutorial.show_tutorial_privacy_pdf',    #10
-    'tutorial.show_tutorial_privacy_practice',
+    # 'tutorial.show_tutorial_privacy_pdf',    #10
+    # 'tutorial.show_tutorial_privacy_practice',
     'main_section.show_section1_guide',    #30
     'main_section.show_record_linkage_task',    #31
     'main_section.show_main_section_guide',    #32      
     'post_survey',
+    'tutorial.show_tutorial_privacy_pdf',    #10
+    'tutorial.show_tutorial_privacy_practice',    #11
+    'tutorial.show_tutorial_clickable_start',    #12
+    'tutorial.show_tutorial_clickable_demo',  #13 DATA_CLICKABLE_DEMO
+    'tutorial.show_tutorial_clickable_incremental1',    #14
+    'tutorial.show_tutorial_clickable_incremental2',    #15
+    'tutorial.show_tutorial_clickable_whatopen',    #16
+    'tutorial.show_tutorial_clickable_decision_making_1',    #17
+    'tutorial.show_tutorial_clickable_decision_making_2',    #18
+    'tutorial.show_tutorial_clickable_decision_making_3',    #19
+    'tutorial.show_tutorial_clickable_decision_making_4',    #20
+    'tutorial.show_tutorial_clickable_decision_making_5',    #21
+    'tutorial.show_tutorial_clickable_whatnotopen',    #22
+    'tutorial.show_tutorial_clickable_whenidentical',
+    'tutorial.show_tutorial_clickable_budgetmeter',    #25
+    'tutorial.show_tutorial_clickable_budgetlimit',
+    'tutorial.show_tutorial_clickable_practice_post',
+    'post_survey_scenario3',
     'show_thankyou' 
 ]
 

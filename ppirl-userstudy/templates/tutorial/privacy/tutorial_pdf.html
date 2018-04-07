@@ -22,8 +22,13 @@
                 <!-- <h3>Tutorial 2</h3> -->
             </div>
             <div id="content">
+                {% if session[session['user_id'] + '_mode'] == "1": %}
+                <object id="instruction_pdf" data="/static/resources/pdf/disclosure_mode_5_mode1.pdf" type="application/pdf">
+                {% else: %}
                 <object id="instruction_pdf" data="/static/resources/pdf/disclosure_mode_5.pdf" type="application/pdf">
+                {% endif %}
                    <p><b>Error</b>: This browser does not support PDFs. Please download the PDF to view it: <a href="/static/resources/pdf/disclosure_mode_5.pdf" target="_blank">Download PDF</a>.</p>
+                
                 </object>
                 <form class="confirm_form">
                     <div>

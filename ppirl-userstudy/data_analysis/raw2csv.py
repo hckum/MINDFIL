@@ -19,6 +19,8 @@ def main(filename, filename2):
                     if len(kv_list) < 2:
                         continue
                     for kv in kv_list:
+                        if len(kv.split(':')) < 2:
+                            continue
                         k = kv.split(':')[0]
                         v = kv.split(':')[1]
                         item_dict[k] = v

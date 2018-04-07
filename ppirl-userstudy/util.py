@@ -42,6 +42,7 @@ def state_machine(function_name):
                 if '.' in current:
                     current = current.split('.')[1]
                 if current == function_name:
+                    # disable going back
                     if i != 0 and i < session['state']:
                         return redirect_by_state()
                     session['state'] = i
