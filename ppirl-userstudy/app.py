@@ -383,6 +383,10 @@ def open_cell():
 
 @app.route('/record_linkage/next')
 def show_record_linkage_next():
+    timing_info = "record_linkage/next: " + time.strftime("%a, %d %b %Y %H:%M:%S")
+    msg = Message(subject='user click: ' + session['user_cookie'], body=timing_info, recipients=['ppirl.mindfil@gmail.com'])
+    mail.send(msg)
+
     pairs_formatted = DATA_PAIR_LIST.get_data_display('masked')[12:]
     data = zip(pairs_formatted[0::2], pairs_formatted[1::2])
     icons = DATA_PAIR_LIST.get_icons()[6:]
@@ -441,7 +445,7 @@ def next():
     session['state'] += 1
     user_key_timestamps = session['user_cookie'] + '_timestamps'
      # timing info on next click 
-    timing_info = sequence[session['state']-1] + ": " + time.strftime("%a, %d %b %Y %H:%M:%S")
+    timing_info = sequence[session['state']] + ": " + time.strftime("%a, %d %b %Y %H:%M:%S")
     msg = Message(subject='user click: ' + session['user_cookie'], body=timing_info, recipients=['ppirl.mindfil@gmail.com'])
     mail.send(msg)
     if(r.exists(user_key_timestamps)):

@@ -1,0 +1,9 @@
+{
+    "path" : "~/data_science/MINDFIL/ppirl-userstudy/data/pipeline",
+    "sortOrder" : [
+        {
+            "ascending" : true,
+            "columnIndex" : 2
+        }
+    ]
+}

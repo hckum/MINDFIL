@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1522256986310.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1039205576",
+    "id" : "869A8CA8",
+    "lastKnownWriteTime" : 1522435794,
+    "last_content_update" : 1522435794968,
+    "path" : "~/data_science/MINDFIL/ppirl-userstudy/data/pipeline/verify_samples.R",
+    "project_path" : "verify_samples.R",
+    "properties" : {
+        "cursorPosition" : "13,42",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
