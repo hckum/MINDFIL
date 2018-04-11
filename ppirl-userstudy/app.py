@@ -20,8 +20,8 @@ app.config.from_object(__name__)
 Session(app)
 """
 
-ENV = 'development'
-# ENV = 'production'
+# ENV = 'development'
+ENV = 'production'
 
 app.config.from_pyfile('config.py')
 
