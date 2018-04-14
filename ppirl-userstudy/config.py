@@ -9,7 +9,7 @@ MAIL_USE_TLS = False
 
 MAIL_USE_SSL = True
 
-MAIL_USERNAME = 'nulbok@gmail.com'
+MAIL_USERNAME = 'mindfil.ppirl@gmail.com'
 
 MAIL_PASSWORD = 'Abcd1234$'
 
